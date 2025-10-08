@@ -63,21 +63,23 @@ nav{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding: 0 3rem;
 }
 .other_info, .autorized_user{
   display: none;
 }
 .logo__nav{
-  margin-left:1rem;
+  margin-left:0;
 }
 .registrate_or_log-in{
   display: flex;
   flex-direction: row;
-  margin-right:1rem;
+  margin-right:0;
   justify-content: space-between;
+  align-items: center;
 }
 .registrate_or_log-in__container{
-  width: 19vw;
+  width: 19rem;
 }
 .nav_menu__container, .registrate_or_log-in__container{
   display: flex;
@@ -85,7 +87,7 @@ nav{
   justify-content: center ;
 }
 .nav_menu__container{
-  width:15vw;
+  width:15rem;
 }
 .nav_menu{
   list-style-type: none;
@@ -99,7 +101,7 @@ nav{
   color:black;
 }
 .registrate_button{
-  width:10vw;
+  width:10rem;
   height:100%;
   background-color: white;
   border: none; 
@@ -107,23 +109,25 @@ nav{
   color: gray;
 }
 .log-in_button{
-  width:5vw;
+  width:5rem;
   height: auto;
   background-color: #7CE3E1;
   border-radius:5px;
   border:none;
   font-family: "Inter", sans-serif;
+  padding: 0.5rem 1rem;
 }
 footer{
   background-color: #029491;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding: 1.5rem 3rem;
 }
 .contact_information{
   list-style-type: none;
   text-align: right;
-  font-size: 14px;
+  font-size: 1.16rem;
 }
 a, .copyright{
   text-decoration: none; 
@@ -136,23 +140,21 @@ a, .copyright{
   justify-content: center;
   color:white;
   font-family: "Inter", sans-serif;
-  margin-right:1rem;
+  margin-right:0;
 }
 .footer_logo{
-  margin-left: 1rem;
+  margin-left: 0;
 }
 .copyright{
   margin-top:1rem;
   text-align: right;
-  font-size: 12px;
+  font-size: 1rem;
 }
 .about_us__main, .why_us{
-  width:fit-content;
+  width:100%;
   height:55rem;
-  margin-top: 2rem;
-  margin-right: 5rem;
-  margin-bottom: 12rem;
-  margin-left:  5rem;
+  margin: 2rem 0 12rem 0;
+  padding: 0 3rem;
   display: flex;
   flex-direction: row;
   justify-content:space-between;
@@ -163,29 +165,32 @@ a, .copyright{
   align-content: left;
   width:62rem;
   height:auto;
+  justify-content: center;
 }
 #about_us__title{
   font-family: Impact, sans-serif;
-  font-size: 65px;
+  font-size: 5.4rem;
   width: 45rem;
   text-transform: uppercase;
+  margin-bottom: 1.5rem;
 }
 #about_us__text{
   font-family: "Inter", sans-serif;
-  font-size:20px;
+  font-size:1.66rem;
+  width: 35rem;
 }
 .ask_for_data__button___container{
   width:100%;
   height:fit-content;
-  margin-top:6rem;
+  margin-top:4rem;
 }
 .ask_for_data__button{
-  width:28rem;
-  height:5rem;
+  width:23.3rem;
+  height:4.16rem;
   background-color: #5970FF;
   color:white;
   font-family: "Inter", sans-serif;
-  font-size: 22px;
+  font-size: 1.83rem;
   border-radius: 5px;
   border:none;
 }
@@ -193,6 +198,7 @@ a, .copyright{
   height:30rem;
   flex-direction: column;
   justify-content: space-between;
+  margin-bottom: 4rem;
 }
 .why_us_text__container{
   width:62rem;
@@ -200,16 +206,19 @@ a, .copyright{
 }
 h2{
   font-family: Impact, sans-serif;
-  font-size: 45px;
+  font-size: 3.75rem;
   align-self: left;
+  text-transform: uppercase;
 }
 .why_us_slider__container{
   display: flex;
   flex-direction: row;
-  width:fit-content;
+  width:100%;
   height:fit-content;
   font-size:2px;
   gap:2em;
+  align-items: center;
+  justify-content: center;
 }
 .slider_objects__container{
   display: flex;
@@ -240,34 +249,40 @@ h2{
   width:30rem;
 }
 .big-img__container{
-  width:fit-content;
+  width:100%;
   height:fit-content;
   margin-top:4rem;
+  padding: 0 3rem;
 }
 .big_img{
-  width:fit-content;
+  width:100%;
   height:auto;
-  margin-left:5rem;
-  margin-right: auto;
+  margin:0 auto;
 }
 .our_tarrifs{
   display: flex;
   flex-direction: column;
+  padding: 0 3rem;
+  margin: 4rem 0;
 }
 .cards_container{
   display: flex;
   flex-direction: row;
   gap:3rem;
+  justify-content: center;
+  margin-top: 2rem;
 }
 .card{
-  font-size:12px;
-  width:415px;
-  height:540px;
+  font-size:1rem;
+  width:25.9rem;
+  height:33.75rem;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
   border-radius: 10px;
 }
 .card__header{
-  height:11rem;
+  height:6.9rem;
+  padding: 1.5rem;
+  border-radius: 10px 10px 0 0;
 }
 #first_header{
   background-color: #FFB64F;
@@ -283,6 +298,8 @@ h2{
 #first_header, #second_header, #third_header{
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 .card__content-text{
   display: flex;
@@ -290,11 +307,18 @@ h2{
 }
 .our_tarrifs__text-container{
   text-transform: uppercase;
+  text-align: center;
 }
 h6{
   font-family: "Inter", sans-serif;
-  font-size: 30px;
+  font-size: 1.87rem;
+  margin-bottom: 0.5rem;
 }
 .card__content-text___subtitle{
   font-family: "Inter", sans-serif;
+  font-size: 1.16rem;
+}
+.card__content-img img {
+  width: 4rem;
+  height: 4rem;
 }
