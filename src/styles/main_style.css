@@ -358,3 +358,64 @@ h6{
   text-decoration: line-through;
   color:gray;
 }
+.additional_price{
+  font-family: "Inter", sans-serif;
+}
+.card_button__container {
+    margin-top: 2rem;
+    padding: 0 30px;
+}
+
+.card_button {
+    width: 100%;
+    height: 3rem;
+    background-color: #5970FF;
+    color: white;
+    font-family: "Inter", sans-serif;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.card_button:hover {
+    background-color: #475DE0;
+}
+.advantages_list{
+  font-family: "Inter", sans-serif;
+  width:fit-content;
+  margin-top:5rem;
+}
+.h6_card{
+  font-size: 18px;
+  font-weight: lighter;
+}
+#Beginner{
+  border:2px solid #FFB64F;
+}
+.advantage{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  padding-left: 2px;
+  list-style: none;
+  gap:5px;
+}
+.advantages_wrap{
+  width:fit-content;
+}
+#Buisness__price, #Pro__price{
+  margin-top:2.5rem;  
+}
+#Buisness__advantages{
+  margin-top:6.3rem;
+}
+#beginner__button{
+  background-color: #D2D2D2;
+  color:black;
+}
+#beginner__button:hover{
+  background-color: #475DE0;
+  color:white;
+}

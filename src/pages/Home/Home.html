@@ -96,7 +96,7 @@
                 <h2>наши тарифы</h2>
             </div>
             <div class="cards_container">
-                <div class="card">
+                <div class="card" id="Beginner">
                     <div class="card__header" id="first_header">
                         <div class="card__content-text">
                             <h6>Beginner</h6>
@@ -122,19 +122,21 @@
                             <p>или 150 ₽/мес. при рассрочке на 24 мес.</p>
                         </div>
                         <div class="advantages_list">
-                            <h6>В тариф входит:</h6>
-                            <ul>
-                                <li>Безлимитная история запросов</li>
-                                <li>Безопасная сделка</li>
-                                <li>Поддержка 24/7</li>
+                            <h6 class="h6_card">В тариф входит:</h6>
+                            <ul class="advantages_wrap">
+                                <li class="advantage"><img src="../../assets/Images/Tick.svg"> <p>Безлимитная история запросов</p></li>
+                                <li class="advantage"><img src="../../assets/Images/Tick.svg"> <p>Безопасная сделка</p></li>
+                                <li class="advantage"><img src="../../assets/Images/Tick.svg"> <p>Поддержка 24/7</p></li>
                             </ul>
                         </div>
-                        <div>
-                            <button></button>
-                        </div>
+                        
+                    </div>
+                    <div class="card_button__container" id="beginner__button__container">
+                        <button class="card_button" id="beginner__button">Перейти в личный кабинет</button>
                     </div>
                 </div>
-                <div class="card">
+                
+                <div class="card" id="Pro">
                     <div class="card__header" id="second_header">
                         <div class="card__content-text">
                             <h6>Pro</h6>
@@ -145,10 +147,33 @@
                         </div>
                     </div>
                     <div class="card__content">
-
+                        <div class="price" id="Pro__price">
+                            <div class="current_price__container">
+                                <p class="current_price">1 299 ₽</p>
+                            </div>
+                            <div class="default_price__container">
+                                <p class="default_price">2 600 ₽</p>
+                            </div>
+                        </div>
+                        <div class="additional_price">
+                            <p>или 279 ₽/мес. при рассрочке на 24 мес.</p>
+                        </div>
+                        <div class="advantages_list">
+                            <h6 class="h6_card">В тариф входит:</h6>
+                            <ul class="advantages_wrap">
+                                <li class="advantage"><img src="../../assets/Images/Tick.svg"> <p>Все пункты тарифа Beginner</p></li>
+                                <li class="advantage"><img src="../../assets/Images/Tick.svg"> <p>Экспорт истории</p></li>
+                                <li class="advantage"><img src="../../assets/Images/Tick.svg"> <p>Рекомендации по приоритетам</p></li>
+                            </ul>
+                        </div>
+                        
+                    </div>
+                    <div class="card_button__container">
+                        <button class="card_button">Подробнее</button>
                     </div>
                 </div>
-                <div class="card" id="third_card">
+                
+                <div class="card" id="Buisness">
                     <div class="card__header" id="third_header">
                         <div class="card__content-text">
                             <h6>Business</h6>
@@ -159,12 +184,30 @@
                         </div>
                     </div>
                     <div class="card__content">
-                        
+                        <div class="price" id="Buisness__price">
+                            <div class="current_price__container">
+                                <p class="current_price">2 379 ₽</p>
+                            </div>
+                            <div class="default_price__container">
+                                <p class="default_price">3 700 ₽</p>
+                            </div>
+                        </div>
+                        <div class="advantages_list" id="Buisness__advantages">
+                            <h6 class="h6_card">В тариф входит:</h6>
+                            <ul class="advantages_wrap" >
+                                <li class="advantage"><img src="../../assets/Images/Tick.svg"> <p>Все пункты тарифа Pro</p></li>
+                                <li class="advantage"><img src="../../assets/Images/Tick.svg"> <p>Безлимитное количество запросов</p></li>
+                                <li class="advantage"><img src="../../assets/Images/Tick.svg"> <p>Приоритетная поддержка</p></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card_button__container">
+                        <button class="card_button">Подробнее</button>
                     </div>
                 </div>
             </div>
         </div>
-        <footer>
+    <footer>
             <img class="footer_logo" src="../../assets/Images/Footer-logo.svg">
         <div class="contact_information__container___wrap">
             <div class="contact_information__container">
