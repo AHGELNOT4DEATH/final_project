@@ -63,30 +63,59 @@
                 <h2>почему именно мы</h2>
             </div>
             <div class="why_us_slider__container">
-                <img id="left" src="../../assets/Images/Slider-arrow__left.svg">
-                <div class="slider_objects__container">
-                    <div class="slider_object">
-                        <div class="slider_object__content">
-                            <img class="slider_object__img" src="../../assets/Images/Time_img.svg">
-                            <p class="slider_object__text">Высокая и оперативная скорость обработки заявки</p>
+                <button class="slider-arrow left-arrow" id="left">
+                    <img src="../../assets/Images/Slider-arrow__left.svg" alt="Предыдущий">
+                </button>
+                
+                <div class="slider-wrapper">
+                    <div class="slider_objects__container">
+                        <div class="slider_object active">
+                            <div class="slider_object__content">
+                                <img class="slider_object__img" src="../../assets/Images/Time_img.svg">
+                                <p class="slider_object__text">Высокая и оперативная скорость обработки заявки</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="slider_object">
-                        <div class="slider_object__content">
-                            <img class="slider_object__img" src="../../assets/Images/magnifier_img.svg">
-                            <p class="slider_object__text">Огромная комплексная база данных, обеспечивающая объективный ответ на запрос</p>
+                        <div class="slider_object">
+                            <div class="slider_object__content">
+                                <img class="slider_object__img" src="../../assets/Images/magnifier_img.svg">
+                                <p class="slider_object__text">Огромная комплексная база данных, обеспечивающая объективный ответ на запрос</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="slider_object">
-                        <div class="slider_object__content">
-                            <img class="slider_object__img" src="../../assets/Images/security_img.svg">
-                            <p class="slider_object__text">Защита конфеденциальных сведений, не подлежащих разглашению по федеральному законодательству</p>
+                        <div class="slider_object">
+                            <div class="slider_object__content">
+                                <img class="slider_object__img" src="../../assets/Images/security_img.svg">
+                                <p class="slider_object__text">Защита конфеденциальных сведений, не подлежащих разглашению по федеральному законодательству</p>
+                            </div>
+                        </div>
+                        <!-- Дополнительные карточки для тестирования -->
+                        <div class="slider_object">
+                            <div class="slider_object__content">
+                                <img class="slider_object__img" src="../../assets/Images/Time_img.svg">
+                                <p class="slider_object__text">Дополнительная карточка 1 для тестирования карусели</p>
+                            </div>
+                        </div>
+                        <div class="slider_object">
+                            <div class="slider_object__content">
+                                <img class="slider_object__img" src="../../assets/Images/magnifier_img.svg">
+                                <p class="slider_object__text">Дополнительная карточка 2 для тестирования карусели</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <img id="right" src="../../assets/Images/Slider-arrow__right.svg">
+                
+                <button class="slider-arrow right-arrow" id="right">
+                    <img src="../../assets/Images/Slider-arrow__right.svg" alt="Следующий">
+                </button>
             </div>
             
+            <!-- Индикаторы слайдов -->
+            <div class="slider-indicators">
+                <span class="indicator active" data-index="0"></span>
+                <span class="indicator" data-index="1"></span>
+                <span class="indicator" data-index="2"></span>
+                <span class="indicator" data-index="3"></span>
+                <span class="indicator" data-index="4"></span>
+            </div>
         </div>
         <div clas="big-img__container">
             <img class="big_img" src="../../assets/Images/Why_us_big.svg">
@@ -223,6 +252,97 @@
             
         </div>
     </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            class Slider {
+                constructor() {
+                    this.sliderContainer = document.querySelector('.slider_objects__container');
+                    this.slides = document.querySelectorAll('.slider_object');
+                    this.indicators = document.querySelectorAll('.indicator');
+                    this.prevBtn = document.querySelector('.left-arrow');
+                    this.nextBtn = document.querySelector('.right-arrow');
+                    
+                    this.currentIndex = 0;
+                    this.slideWidth = 400;
+                    this.gap = 32;
+                    this.totalSlides = this.slides.length;
+                    
+                    this.init();
+                }
+                
+                init() {
+                    this.prevBtn.addEventListener('click', () => this.prevSlide());
+                    this.nextBtn.addEventListener('click', () => this.nextSlide());
+                    
+                    this.indicators.forEach((indicator, index) => {
+                        indicator.addEventListener('click', () => this.goToSlide(index));
+                    });
+                    
+                    window.addEventListener('resize', () => {
+                        this.updateSlider();
+                    });
+                    
+                    this.updateSlider();
+                }
+                
+                updateSlider() {
+                    // Получаем ширину wrapper для точного центрирования
+                    const wrapper = document.querySelector('.slider-wrapper');
+                    const wrapperWidth = wrapper.offsetWidth;
+                    
+                    // Рассчитываем смещение для центрирования текущего слайда
+                    const totalSlideWidth = this.slideWidth + this.gap;
+                    const centerPosition = (wrapperWidth / 2) - (this.slideWidth / 2);
+                    const currentSlideOffset = this.currentIndex * totalSlideWidth;
+                    
+                    // Центрируем текущий слайд
+                    this.sliderContainer.style.transform = `translateX(calc(${centerPosition}px - ${currentSlideOffset}px))`;
+                    
+                    // Обновляем классы для визуальных эффектов
+                    this.slides.forEach((slide, index) => {
+                        slide.classList.remove('active', 'side');
+                        
+                        const diff = Math.abs(index - this.currentIndex);
+                        
+                        if (index === this.currentIndex) {
+                            // Центральная карточка
+                            slide.classList.add('active');
+                        } else if (diff === 1) {
+                            // Боковые карточки (видны на 25%)
+                            slide.classList.add('side');
+                        }
+                        // Остальные карточки скрыты
+                    });
+                    
+                    // Обновляем индикаторы
+                    this.indicators.forEach((indicator, index) => {
+                        indicator.classList.remove('active');
+                        if (index === this.currentIndex) {
+                            indicator.classList.add('active');
+                        }
+                    });
+                }
+                
+                nextSlide() {
+                    this.currentIndex = (this.currentIndex + 1) % this.totalSlides;
+                    this.updateSlider();
+                }
+                
+                prevSlide() {
+                    this.currentIndex = (this.currentIndex - 1 + this.totalSlides) % this.totalSlides;
+                    this.updateSlider();
+                }
+                
+                goToSlide(index) {
+                    this.currentIndex = index % this.totalSlides;
+                    this.updateSlider();
+                }
+            }
+            
+            // Инициализация слайдера
+            new Slider();
+        });
+    </script>
     </body>
 
 </html>
