@@ -322,3 +322,39 @@ h6{
   width: 4rem;
   height: 4rem;
 }
+.card__content{
+  display: flex;
+  flex-direction: column;
+  padding-left:30px;
+}
+.placeholder{
+  background-color: #3BA5E0;
+  font-family: "Inter", sans-serif;
+  border-radius:10px;
+  color:white;
+  text-align: center;
+  width:11rem;
+  align-self:end;
+  margin-top:1rem;
+  margin-right:10px;
+}
+.price{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem
+}
+.current_price{
+  font-size: 30px;
+  font-family: "Inter", sans-serif;
+}
+.default_price__container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.default_price{
+  font-size: 25px;
+  font-family: "Inter", sans-serif;
+  text-decoration: line-through;
+  color:gray;
+}
