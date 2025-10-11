@@ -605,165 +605,225 @@ h6{
 
 /* Смартфоны (до 768px) */
 @media (max-width: 768px) {
-    .nav__container {
-        height: 60px; /* Фиксированная высота для мобильных */
-        position: relative;
-    }
-    
-    nav {
-        padding: 0 1rem; /* Меньшие отступы */
-        position: relative;
-        align-items: center;
-        height: 100%;
-    }
-    
-    /* Скрываем обычное меню на мобильных */
-    .nav_menu__container {
-        display: none;
-    }
-    
-    /* Скрываем блок авторизации на мобильных */
-    .registrate_or_log-in__container {
-        display: none;
-    }
-    
-    /* Скрываем блок с лимитами компаний */
-    .other_info {
-        display: none;
-    }
-    
-    /* Центрируем логотип на мобильных */
-    .logo__nav {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        margin: 0;
-    }
-    
-    .logo__nav img {
-        height: 30px; /* Уменьшаем логотип */
-        width: auto;
-    }
-    
-    /* Бургер-меню - показываем только на мобильных */
-    .burger-menu {
-        display: block;
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 0.5rem;
-        margin-left: auto;
-        z-index: 1001;
-    }
-    
-    .burger-menu span {
-        display: block;
-        width: 25px;
-        height: 2px;
-        background: #000;
-        margin: 5px 0;
-        transition: 0.3s;
-        border-radius: 2px;
-    }
-    
-    /* Анимация бургера при активном состоянии */
-    .burger-menu.active span:nth-child(1) {
-        transform: rotate(-45deg) translate(-5px, 6px);
-    }
-    
-    .burger-menu.active span:nth-child(2) {
-        opacity: 0;
-    }
-    
-    .burger-menu.active span:nth-child(3) {
-        transform: rotate(45deg) translate(-5px, -6px);
-    }
-    
-    /* Мобильное меню */
-    .mobile-menu {
-        display: none;
-        position: fixed;
-        top: 60px;
-        left: 0;
-        width: 100%;
-        height: calc(100vh - 60px);
-        background: white;
-        z-index: 1000;
-        padding: 2rem 1rem;
-        box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-        overflow-y: auto;
-    }
-    
-    .mobile-menu.active {
-        display: block;
-    }
-    
-    .mobile-nav_menu {
-        list-style: none;
-        margin-bottom: 2rem;
-    }
-    
-    .mobile-nav_menu li {
-        margin: 1.5rem 0;
-        text-align: center;
-    }
-    
-    .mobile-nav_menu__link {
-        color: #000;
-        text-decoration: none;
-        font-family: "Inter", sans-serif;
-        font-size: 1.2rem;
-        font-weight: 500;
-    }
-    
-    .mobile-auth-buttons {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        margin-top: 2rem;
-    }
-    
-    .mobile-registrate_button {
-        background: white;
-        border: 1px solid #5970FF;
-        color: #5970FF;
-        padding: 1rem;
-        border-radius: 5px;
-        font-family: "Inter", sans-serif;
-        font-size: 1.1rem;
-        cursor: pointer;
-    }
-    
-    .mobile-log-in_button {
-        background: #7CE3E1;
-        border: none;
-        color: #000;
-        padding: 1rem;
-        border-radius: 5px;
-        font-family: "Inter", sans-serif;
-        font-size: 1.1rem;
-        cursor: pointer;
-    }
-    
-    /* Для авторизованного пользователя в мобильном меню */
-    .mobile-authorized_user {
-        text-align: center;
-        margin-top: 2rem;
-    }
-    
-    .mobile-user_name {
-        font-family: "Inter", sans-serif;
-        font-size: 1.1rem;
-        margin-bottom: 1rem;
-    }
-    
-    .mobile-log-out_button {
-        background: none;
-        border: 1px solid #FF6B6B;
-        color: #FF6B6B;
-        padding: 0.8rem 1.5rem;
-        border-radius: 5px;
-        font-family: "Inter", sans-serif;
-        cursor: pointer;
-    }
+  .nav__container {
+      height: 60px;
+      position: relative; 
+      background: white;
+  }
+  
+  nav {
+      padding: 0 1rem;
+      position: relative;
+      align-items: center;
+      height: 100%;
+      background: white;
+  }
+  
+  /* Скрываем обычное меню на мобильных */
+  .nav_menu__container {
+      display: none;
+  }
+  
+  /* Скрываем блок авторизации на мобильных */
+  .registrate_or_log-in__container {
+      display: none;
+  }
+  
+  /* Скрываем блок с лимитами компаний */
+  .other_info {
+      display: none;
+  }
+  
+  /* Логотип - прижимаем к левому краю */
+  .logo__nav {
+      position: absolute;
+      left: 1rem;
+      transform: none;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      height: 100%;
+  }
+  
+  .logo__nav img {
+      height: 25px;
+      width: auto;
+  }
+  
+  /* Бургер-меню - прижимаем к правому краю */
+.burger-menu {
+    display: block;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    margin-left: auto;
+    position: absolute;
+    right: 1rem;
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.burger-menu span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background: #000;
+    margin: 3px 0; /* Уменьшил отступ между линиями */
+    transition: 0.3s;
+    border-radius: 2px;
+}
+
+/* Анимация бургера при активном состоянии - ИСПРАВЛЕННАЯ */
+.burger-menu.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.burger-menu.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.burger-menu.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+  
+  /* Анимация бургера при активном состоянии */
+  .burger-menu.active span:nth-child(1) {
+      transform: rotate(-45deg) translate(-5px, 6px);
+  }
+  
+  .burger-menu.active span:nth-child(2) {
+      opacity: 0;
+  }
+  
+  .burger-menu.active span:nth-child(3) {
+      transform: rotate(45deg) translate(-5px, -6px);
+  }
+  
+  /* Мобильное меню - полноэкранное, перекрывает всю вёрстку */
+  .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: #029491; /* Зелёный фон как на картинке */
+      z-index: 999;
+      padding: 2rem 1.5rem;
+      overflow-y: auto;
+  }
+  
+  .mobile-menu.active {
+      display: block;
+  }
+  
+  /* Шапка мобильного меню */
+  .mobile-menu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  .mobile-menu-title {
+      font-family: "Inter", sans-serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: white;
+  }
+  
+  .mobile-menu-close {
+      background: none;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      color: white;
+      padding: 0;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+  
+  /* Навигация в меню */
+  .mobile-nav_menu {
+      list-style: none;
+      margin-bottom: 3rem;
+  }
+  
+  .mobile-nav_menu li {
+      margin: 1.5rem 0;
+  }
+  
+  .mobile-nav_menu__link {
+      color: white;
+      text-decoration: none;
+      font-family: "Inter", sans-serif;
+      font-size: 1.3rem;
+      font-weight: 500;
+      display: block;
+      padding: 0.8rem 0;
+      transition: opacity 0.3s ease;
+  }
+  
+  .mobile-nav_menu__link:hover {
+      opacity: 0.8;
+  }
+  
+  /* Кнопки авторизации */
+  .mobile-auth-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 2rem;
+  }
+  
+  .mobile-registrate_button {
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 5px;
+      font-family: "Inter", sans-serif;
+      font-size: 1.1rem;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.3s ease;
+  }
+  
+  .mobile-registrate_button:hover {
+      background: white;
+      color: #029491;
+  }
+  
+  .mobile-log-in_button {
+      background: #7CE3E1;
+      border: none;
+      color: #000;
+      padding: 1rem 1.5rem;
+      border-radius: 5px;
+      font-family: "Inter", sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: background-color 0.3s ease;
+  }
+  
+  .mobile-log-in_button:hover {
+      background: #5CD9D6;
+  }
+  
+  /* Скрываем overlay так как меню полноэкранное */
+  .mobile-menu-overlay {
+      display: none;
+  }
 }

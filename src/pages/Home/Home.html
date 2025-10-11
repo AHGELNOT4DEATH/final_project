@@ -43,11 +43,17 @@
                         <button class="log-out_button"></button>
                     </div>
                 </div>
+                <!-- Мобильное меню - полноэкранное -->
                 <div class="mobile-menu">
+                    <div class="mobile-menu-header">
+                        <div class="mobile-menu-title">СКАН</div>
+                        <button class="mobile-menu-close">×</button>
+                    </div>
+                    
                     <ul class="mobile-nav_menu">
-                        <li><a class="mobile-nav_menu__link">Главная</a></li>
-                        <li><a class="mobile-nav_menu__link">Тарифы</a></li>
-                        <li><a class="mobile-nav_menu__link">FAQ</a></li>
+                        <li><a href="#" class="mobile-nav_menu__link">Главная</a></li>
+                        <li><a href="#" class="mobile-nav_menu__link">Тарифы</a></li>
+                        <li><a href="#" class="mobile-nav_menu__link">FAQ</a></li>
                     </ul>
                     
                     <div class="mobile-auth-buttons">
@@ -346,24 +352,26 @@
             document.addEventListener('DOMContentLoaded', function() {
                 const burgerMenu = document.querySelector('.burger-menu');
                 const mobileMenu = document.querySelector('.mobile-menu');
+                const mobileClose = document.querySelector('.mobile-menu-close');
+                
+                function toggleMenu() {
+                    burgerMenu.classList.toggle('active');
+                    mobileMenu.classList.toggle('active');
+                    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+                }
                 
                 if (burgerMenu && mobileMenu) {
-                    burgerMenu.addEventListener('click', function() {
-                        this.classList.toggle('active');
-                        mobileMenu.classList.toggle('active');
-                        
-                        // Блокируем прокрутку тела при открытом меню
-                        document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-                    });
+                    burgerMenu.addEventListener('click', toggleMenu);
                     
-                    // Закрываем меню при клике на ссылку
+                    // Закрытие по клику на крестик
+                    if (mobileClose) {
+                        mobileClose.addEventListener('click', toggleMenu);
+                    }
+                    
+                    // Закрытие по клику на ссылку
                     const mobileLinks = document.querySelectorAll('.mobile-nav_menu__link');
                     mobileLinks.forEach(link => {
-                        link.addEventListener('click', () => {
-                            burgerMenu.classList.remove('active');
-                            mobileMenu.classList.remove('active');
-                            document.body.style.overflow = '';
-                        });
+                        link.addEventListener('click', toggleMenu);
                     });
                 }
             });
