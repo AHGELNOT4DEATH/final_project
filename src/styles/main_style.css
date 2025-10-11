@@ -66,7 +66,7 @@ nav{
   padding: 0 3rem;
 }
 .other_info, .autorized_user{
-  display: none;
+  /*display: none;*/
 }
 .logo__nav{
   margin-left:0;

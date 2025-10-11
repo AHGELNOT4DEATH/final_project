@@ -1,0 +1,32 @@
+/* Стили для блока с лимитами */
+.other_info {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.company_limit {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  color: #000;
+}
+
+/* Стили для авторизованного пользователя */
+.autorized_user {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user_name {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+}
+
+.log-out_button {
+  background: none;
+  border: none;
+  color: #000;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+}
