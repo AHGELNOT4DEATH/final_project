@@ -66,7 +66,7 @@ nav{
   padding: 0 3rem;
 }
 .other_info, .autorized_user{
-  /*display: none;*/
+  display: none;
 }
 .logo__nav{
   margin-left:0;
@@ -211,6 +211,7 @@ h2{
   text-transform: uppercase;
 }
 /* Стили для карусели с боковыми карточками */
+/* Улучшенные стили для центровки карусели */
 .why_us_slider__container {
     position: relative;
     display: flex;
@@ -223,22 +224,41 @@ h2{
 
 .slider-wrapper {
     width: 100%;
-    overflow: hidden;
+    overflow-x: auto; /* Разрешаем горизонтальную прокрутку */
+    scroll-behavior: smooth; /* Плавная прокрутка */
     max-width: 1200px;
     padding: 2rem 0;
-    position: relative; /* Добавляем это */
+    position: relative;
+    scrollbar-width: none; /* Скрываем скроллбар для Firefox */
+    -ms-overflow-style: none; /* Скрываем скроллбар для IE */
+}
+
+/* Скрываем скроллбар для Webkit браузеров */
+.slider-wrapper::-webkit-scrollbar {
+    display: none;
 }
 
 .slider_objects__container {
     display: flex;
-    transition: transform 0.4s ease-in-out;
     gap: 2rem;
     align-items: center;
-    padding: 0 150px; /* Отступы для боковых карточек */
+    padding: 0 2rem; /* Уменьшил отступы для мобильных */
+    justify-content: flex-start; /* Важно для правильной работы scrollIntoView */
+    width: max-content; /* Контейнер подстраивается под контент */
 }
 
+/* Гарантируем, что активная карточка всегда по центру */
+.slider_object.active {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
+    z-index: 2;
+    scroll-snap-align: center; /* Помогает центрировать при прокрутке */
+}
+
+/* Убедимся, что все карточки одинаковой ширины */
 .slider_object {
-    flex: 0 0 400px;
+    flex: 0 0 400px; /* Фиксированная ширина */
     height: 225px;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
@@ -249,15 +269,8 @@ h2{
     justify-content: center;
     opacity: 0.6;
     transform: scale(0.9);
+    scroll-snap-align: start; /* Для улучшенной прокрутки */
 }
-
-.slider_object.active {
-    opacity: 1;
-    transform: scale(1);
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
-    z-index: 2;
-}
-
 .slider_object.side {
     opacity: 0.4;
     transform: scale(0.85);
@@ -578,4 +591,179 @@ h6{
 #beginner__button:hover{
   background-color: #475DE0;
   color:white;
+}
+/* --------------------------- АДАПТИВ ДЛЯ СМАРТФОНОВ --------------------------- */
+
+/* Сначала скроем бургер-меню по умолчанию */
+.burger-menu {
+    display: none;
+}
+
+.mobile-menu {
+    display: none;
+}
+
+/* Смартфоны (до 768px) */
+@media (max-width: 768px) {
+    .nav__container {
+        height: 60px; /* Фиксированная высота для мобильных */
+        position: relative;
+    }
+    
+    nav {
+        padding: 0 1rem; /* Меньшие отступы */
+        position: relative;
+        align-items: center;
+        height: 100%;
+    }
+    
+    /* Скрываем обычное меню на мобильных */
+    .nav_menu__container {
+        display: none;
+    }
+    
+    /* Скрываем блок авторизации на мобильных */
+    .registrate_or_log-in__container {
+        display: none;
+    }
+    
+    /* Скрываем блок с лимитами компаний */
+    .other_info {
+        display: none;
+    }
+    
+    /* Центрируем логотип на мобильных */
+    .logo__nav {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 0;
+    }
+    
+    .logo__nav img {
+        height: 30px; /* Уменьшаем логотип */
+        width: auto;
+    }
+    
+    /* Бургер-меню - показываем только на мобильных */
+    .burger-menu {
+        display: block;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem;
+        margin-left: auto;
+        z-index: 1001;
+    }
+    
+    .burger-menu span {
+        display: block;
+        width: 25px;
+        height: 2px;
+        background: #000;
+        margin: 5px 0;
+        transition: 0.3s;
+        border-radius: 2px;
+    }
+    
+    /* Анимация бургера при активном состоянии */
+    .burger-menu.active span:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    
+    .burger-menu.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .burger-menu.active span:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+    
+    /* Мобильное меню */
+    .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 60px);
+        background: white;
+        z-index: 1000;
+        padding: 2rem 1rem;
+        box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        overflow-y: auto;
+    }
+    
+    .mobile-menu.active {
+        display: block;
+    }
+    
+    .mobile-nav_menu {
+        list-style: none;
+        margin-bottom: 2rem;
+    }
+    
+    .mobile-nav_menu li {
+        margin: 1.5rem 0;
+        text-align: center;
+    }
+    
+    .mobile-nav_menu__link {
+        color: #000;
+        text-decoration: none;
+        font-family: "Inter", sans-serif;
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+    
+    .mobile-auth-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+    
+    .mobile-registrate_button {
+        background: white;
+        border: 1px solid #5970FF;
+        color: #5970FF;
+        padding: 1rem;
+        border-radius: 5px;
+        font-family: "Inter", sans-serif;
+        font-size: 1.1rem;
+        cursor: pointer;
+    }
+    
+    .mobile-log-in_button {
+        background: #7CE3E1;
+        border: none;
+        color: #000;
+        padding: 1rem;
+        border-radius: 5px;
+        font-family: "Inter", sans-serif;
+        font-size: 1.1rem;
+        cursor: pointer;
+    }
+    
+    /* Для авторизованного пользователя в мобильном меню */
+    .mobile-authorized_user {
+        text-align: center;
+        margin-top: 2rem;
+    }
+    
+    .mobile-user_name {
+        font-family: "Inter", sans-serif;
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .mobile-log-out_button {
+        background: none;
+        border: 1px solid #FF6B6B;
+        color: #FF6B6B;
+        padding: 0.8rem 1.5rem;
+        border-radius: 5px;
+        font-family: "Inter", sans-serif;
+        cursor: pointer;
+    }
 }

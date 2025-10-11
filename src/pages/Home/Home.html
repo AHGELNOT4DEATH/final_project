@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
-        <link rel="stylesheet" href="../../styles/main_style.css">
+        <link rel="stylesheet" href="../../styles/home_style.css">
     </head>
     <body>
         <div class="nav__container">
@@ -19,6 +19,11 @@
                         <li><a class="nav_menu__link">FAQ</a></li>
                     </ul>
                 </div>
+                <button class="burger-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
                 <div class="other_info"></div>
                 <div class="registrate_or_log-in__container">
                     <div class="registrate_or_log-in">
@@ -36,6 +41,18 @@
                             <p></p>
                         </div>
                         <button class="log-out_button"></button>
+                    </div>
+                </div>
+                <div class="mobile-menu">
+                    <ul class="mobile-nav_menu">
+                        <li><a class="mobile-nav_menu__link">Главная</a></li>
+                        <li><a class="mobile-nav_menu__link">Тарифы</a></li>
+                        <li><a class="mobile-nav_menu__link">FAQ</a></li>
+                    </ul>
+                    
+                    <div class="mobile-auth-buttons">
+                        <button class="mobile-registrate_button">Зарегистрироваться</button>
+                        <button class="mobile-log-in_button">Войти</button>
                     </div>
                 </div>
             </nav>
@@ -236,6 +253,122 @@
                 </div>
             </div>
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                class Slider {
+                    constructor() {
+                        this.sliderContainer = document.querySelector('.slider_objects__container');
+                        this.slides = document.querySelectorAll('.slider_object');
+                        this.indicators = document.querySelectorAll('.indicator');
+                        this.prevBtn = document.querySelector('.left-arrow');
+                        this.nextBtn = document.querySelector('.right-arrow');
+                        
+                        this.currentIndex = 0;
+                        this.totalSlides = this.slides.length;
+                        
+                        this.init();
+                    }
+                    
+                    init() {
+                        this.prevBtn.addEventListener('click', () => this.prevSlide());
+                        this.nextBtn.addEventListener('click', () => this.nextSlide());
+                        
+                        this.indicators.forEach((indicator, index) => {
+                            indicator.addEventListener('click', () => this.goToSlide(index));
+                        });
+                        
+                        window.addEventListener('resize', () => {
+                            this.updateSlider();
+                        });
+                        
+                        this.updateSlider();
+                    }
+                    
+                    updateSlider() {
+                        // Убираем все активные классы
+                        this.slides.forEach((slide, index) => {
+                            slide.classList.remove('active', 'side');
+                            
+                            const diff = Math.abs(index - this.currentIndex);
+                            
+                            if (index === this.currentIndex) {
+                                // Центральная карточка
+                                slide.classList.add('active');
+                            } else if (diff === 1) {
+                                // Боковые карточки
+                                slide.classList.add('side');
+                            }
+                            // Остальные карточки скрыты
+                        });
+                        
+                        // ПРОСТОЙ И ЭФФЕКТИВНЫЙ СПОСОБ ЦЕНТРИРОВАНИЯ:
+                        // Находим активный слайд и прокручиваем к нему
+                        const activeSlide = this.slides[this.currentIndex];
+                        if (activeSlide) {
+                            activeSlide.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'nearest',
+                                inline: 'center'
+                            });
+                        }
+                        
+                        // Обновляем индикаторы
+                        this.indicators.forEach((indicator, index) => {
+                            indicator.classList.remove('active');
+                            if (index === this.currentIndex) {
+                                indicator.classList.add('active');
+                            }
+                        });
+                    }
+                    
+                    nextSlide() {
+                        this.currentIndex = (this.currentIndex + 1) % this.totalSlides;
+                        this.updateSlider();
+                    }
+                    
+                    prevSlide() {
+                        this.currentIndex = (this.currentIndex - 1 + this.totalSlides) % this.totalSlides;
+                        this.updateSlider();
+                    }
+                    
+                    goToSlide(index) {
+                        this.currentIndex = index % this.totalSlides;
+                        this.updateSlider();
+                    }
+                }
+                
+                // Инициализация слайдера
+                new Slider();
+            });
+        </script>
+        <script>
+            // Бургер-меню для мобильных
+            document.addEventListener('DOMContentLoaded', function() {
+                const burgerMenu = document.querySelector('.burger-menu');
+                const mobileMenu = document.querySelector('.mobile-menu');
+                
+                if (burgerMenu && mobileMenu) {
+                    burgerMenu.addEventListener('click', function() {
+                        this.classList.toggle('active');
+                        mobileMenu.classList.toggle('active');
+                        
+                        // Блокируем прокрутку тела при открытом меню
+                        document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+                    });
+                    
+                    // Закрываем меню при клике на ссылку
+                    const mobileLinks = document.querySelectorAll('.mobile-nav_menu__link');
+                    mobileLinks.forEach(link => {
+                        link.addEventListener('click', () => {
+                            burgerMenu.classList.remove('active');
+                            mobileMenu.classList.remove('active');
+                            document.body.style.overflow = '';
+                        });
+                    });
+                }
+            });
+        </script>
+    </body>
     <footer>
             <img class="footer_logo" src="../../assets/Images/Footer-logo.svg">
         <div class="contact_information__container___wrap">
@@ -252,97 +385,6 @@
             
         </div>
     </footer>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            class Slider {
-                constructor() {
-                    this.sliderContainer = document.querySelector('.slider_objects__container');
-                    this.slides = document.querySelectorAll('.slider_object');
-                    this.indicators = document.querySelectorAll('.indicator');
-                    this.prevBtn = document.querySelector('.left-arrow');
-                    this.nextBtn = document.querySelector('.right-arrow');
-                    
-                    this.currentIndex = 0;
-                    this.slideWidth = 400;
-                    this.gap = 32;
-                    this.totalSlides = this.slides.length;
-                    
-                    this.init();
-                }
-                
-                init() {
-                    this.prevBtn.addEventListener('click', () => this.prevSlide());
-                    this.nextBtn.addEventListener('click', () => this.nextSlide());
-                    
-                    this.indicators.forEach((indicator, index) => {
-                        indicator.addEventListener('click', () => this.goToSlide(index));
-                    });
-                    
-                    window.addEventListener('resize', () => {
-                        this.updateSlider();
-                    });
-                    
-                    this.updateSlider();
-                }
-                
-                updateSlider() {
-                    // Получаем ширину wrapper для точного центрирования
-                    const wrapper = document.querySelector('.slider-wrapper');
-                    const wrapperWidth = wrapper.offsetWidth;
-                    
-                    // Рассчитываем смещение для центрирования текущего слайда
-                    const totalSlideWidth = this.slideWidth + this.gap;
-                    const centerPosition = (wrapperWidth / 2) - (this.slideWidth / 2);
-                    const currentSlideOffset = this.currentIndex * totalSlideWidth;
-                    
-                    // Центрируем текущий слайд
-                    this.sliderContainer.style.transform = `translateX(calc(${centerPosition}px - ${currentSlideOffset}px))`;
-                    
-                    // Обновляем классы для визуальных эффектов
-                    this.slides.forEach((slide, index) => {
-                        slide.classList.remove('active', 'side');
-                        
-                        const diff = Math.abs(index - this.currentIndex);
-                        
-                        if (index === this.currentIndex) {
-                            // Центральная карточка
-                            slide.classList.add('active');
-                        } else if (diff === 1) {
-                            // Боковые карточки (видны на 25%)
-                            slide.classList.add('side');
-                        }
-                        // Остальные карточки скрыты
-                    });
-                    
-                    // Обновляем индикаторы
-                    this.indicators.forEach((indicator, index) => {
-                        indicator.classList.remove('active');
-                        if (index === this.currentIndex) {
-                            indicator.classList.add('active');
-                        }
-                    });
-                }
-                
-                nextSlide() {
-                    this.currentIndex = (this.currentIndex + 1) % this.totalSlides;
-                    this.updateSlider();
-                }
-                
-                prevSlide() {
-                    this.currentIndex = (this.currentIndex - 1 + this.totalSlides) % this.totalSlides;
-                    this.updateSlider();
-                }
-                
-                goToSlide(index) {
-                    this.currentIndex = index % this.totalSlides;
-                    this.updateSlider();
-                }
-            }
-            
-            // Инициализация слайдера
-            new Slider();
-        });
-    </script>
-    </body>
+        
 
 </html>
