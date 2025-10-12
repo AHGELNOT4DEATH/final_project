@@ -619,7 +619,7 @@ h6{
       background: white;
   }
   
-  /* Скрываем обычное меню на мобильных */
+/* Скрываем обычное меню на мобильных */
   .nav_menu__container {
       display: none;
   }
@@ -629,12 +629,11 @@ h6{
       display: none;
   }
   
-  /* Скрываем блок с лимитами компаний */
+/* Скрываем блок с лимитами компаний */
   .other_info {
       display: none;
   }
-  
-  /* Логотип - прижимаем к левому краю */
+/* Логотип - прижимаем к левому краю */
   .logo__nav {
       position: absolute;
       left: 1rem;
@@ -649,9 +648,9 @@ h6{
       height: 25px;
       width: auto;
   }
-  
-  /* Бургер-меню - прижимаем к правому краю */
-.burger-menu {
+
+/* Бургер-меню - прижимаем к правому краю */
+  .burger-menu {
     display: block;
     background: none;
     border: none;
@@ -666,34 +665,25 @@ h6{
     height: 100%;
     flex-direction: column;
     justify-content: center;
-}
+    gap: 4px;
+  }
 
-.burger-menu span {
+  .burger-menu span {
     display: block;
     width: 25px;
     height: 2px;
     background: #000;
-    margin: 3px 0; /* Уменьшил отступ между линиями */
     transition: 0.3s;
     border-radius: 2px;
-}
+  }
+/* Бургер меняет цвет на белый когда меню открыто */
+  .burger-menu.active span {
+      background: white;
+  }
 
-/* Анимация бургера при активном состоянии - ИСПРАВЛЕННАЯ */
-.burger-menu.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-}
-
-.burger-menu.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.burger-menu.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -6px);
-}
-  
-  /* Анимация бургера при активном состоянии */
+/* Анимация бургера при активном состоянии */
   .burger-menu.active span:nth-child(1) {
-      transform: rotate(-45deg) translate(-5px, 6px);
+      transform: rotate(45deg) translate(6px, 6px);
   }
   
   .burger-menu.active span:nth-child(2) {
@@ -701,10 +691,10 @@ h6{
   }
   
   .burger-menu.active span:nth-child(3) {
-      transform: rotate(45deg) translate(-5px, -6px);
+      transform: rotate(-45deg) translate(6px, -6px);
   }
-  
-  /* Мобильное меню - полноэкранное, перекрывает всю вёрстку */
+
+/* Мобильное меню - полноэкранное */
   .mobile-menu {
       display: none;
       position: fixed;
@@ -712,7 +702,7 @@ h6{
       left: 0;
       width: 100%;
       height: 100vh;
-      background: #029491; /* Зелёный фон как на картинке */
+      background: #029491;
       z-index: 999;
       padding: 2rem 1.5rem;
       overflow-y: auto;
@@ -720,16 +710,15 @@ h6{
   
   .mobile-menu.active {
       display: block;
+      width: 100%;
+      height:fit-content;
   }
-  
-  /* Шапка мобильного меню */
+/* Шапка мобильного меню - убираем крестик */
   .mobile-menu-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       margin-bottom: 3rem;
       padding-bottom: 1rem;
       border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      width:fit-content
   }
   
   .mobile-menu-title {
@@ -737,23 +726,10 @@ h6{
       font-size: 1.5rem;
       font-weight: 600;
       color: white;
-  }
-  
-  .mobile-menu-close {
-      background: none;
-      border: none;
-      font-size: 2rem;
-      cursor: pointer;
-      color: white;
-      padding: 0;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-  }
-  
-  /* Навигация в меню */
+      width:8rem;
+      height:8rem;
+  }    
+/* Навигация в меню */
   .mobile-nav_menu {
       list-style: none;
       margin-bottom: 3rem;
@@ -761,9 +737,8 @@ h6{
   
   .mobile-nav_menu li {
       margin: 1.5rem 0;
-  }
-  
-  .mobile-nav_menu__link {
+  }  
+.mobile-nav_menu__link {
       color: white;
       text-decoration: none;
       font-family: "Inter", sans-serif;
@@ -777,13 +752,18 @@ h6{
   .mobile-nav_menu__link:hover {
       opacity: 0.8;
   }
-  
-  /* Кнопки авторизации */
+/* Кнопки авторизации */
   .mobile-auth-buttons {
       display: flex;
       flex-direction: column;
       gap: 1rem;
       margin-top: 2rem;
+      width:100vw;
+
+      
+  }
+  .mobile-registrate_button, .mobile-log-in_button{
+    width: 28rem;
   }
   
   .mobile-registrate_button {
@@ -821,9 +801,24 @@ h6{
   .mobile-log-in_button:hover {
       background: #5CD9D6;
   }
-  
-  /* Скрываем overlay так как меню полноэкранное */
-  .mobile-menu-overlay {
-      display: none;
+  .about_us__main{
+    height:fit-content;
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    padding-left:5px;
+  }
+  .about_us__main___text____container{
+    width:auto;
+  }    
+  #about_us__title{
+    font-family: "Inter", sans-serif;
+    font-size: 40px;
+    width:fit-content;
+    font-weight: 900;
+  }
+  #about_us_text{
+    width:27rem;
+    font-size:1rem;
   }
 }
