@@ -9,6 +9,16 @@
   font-family: "Inter", sans-serif;
   font-size: 14px;
   color: #000;
+  text-align: right;
+}
+
+.company_limit span {
+  font-weight: bold;
+}
+
+.loader {
+  color: #666;
+  font-style: italic;
 }
 
 /* Стили для авторизованного пользователя */
@@ -18,9 +28,17 @@
   gap: 15px;
 }
 
+.user_info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+}
+
 .user_name {
   font-family: "Inter", sans-serif;
   font-size: 14px;
+  font-weight: 500;
 }
 
 .log-out_button {
@@ -29,4 +47,62 @@
   color: #000;
   cursor: pointer;
   font-family: "Inter", sans-serif;
+  font-size: 12px;
+  text-decoration: underline;
 }
+
+.log-out_button:hover {
+  color: #666;
+}
+
+.user_avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Мобильные стили для авторизованного пользователя */
+.mobile-authorized {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.mobile-user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+}
+
+.mobile-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.mobile-user-name {
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+}
+
+.mobile-log-out_button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mobile-log-out_button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Остальные стили из home_style.css уже включены в глобальные стили */

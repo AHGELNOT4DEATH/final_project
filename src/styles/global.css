@@ -1074,3 +1074,7 @@ h6 {
   align-items: center;
   justify-content: center;
 }
+/* Debug borders - ВРЕМЕННО ДОБАВЬ ЭТО */
+.debug * {
+  outline: 1px solid red !important;
+}
