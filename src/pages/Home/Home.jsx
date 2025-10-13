@@ -71,7 +71,8 @@ const Home = () => {
       headerColor: "first_header",
       isCurrent: true,
       buttonText: "Перейти в личный кабинет",
-      buttonId: "beginner__button"
+      buttonId: "beginner__button",
+      containerId: "beginner__container"  // ← ДОБАВЛЕНО
     },
     {
       id: "pro",
@@ -298,10 +299,14 @@ const Home = () => {
                 </div>
               </div>
               
-              <div className="card_button__container">
+              {/* КОНТЕЙНЕР КНОПКИ С ID */}
+              <div 
+                className="card_button__container" 
+                id={tariff.containerId}  // ← ДОБАВЛЕНО ID ДЛЯ КОНТЕЙНЕРА
+              >
                 <button 
                   className={`card_button ${tariff.isCurrent ? 'current-tariff' : ''}`}
-                  id={tariff.buttonId}
+                  id={tariff.buttonId}  // ← ДОБАВЛЕНО ID ДЛЯ КНОПКИ
                 >
                   {tariff.buttonText}
                 </button>
