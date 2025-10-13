@@ -1,0 +1,115 @@
+/*---------------------------Fonts connection---------------------------*/
+@font-face {
+  font-family: "Impact";
+  font-style: normal;
+  font-weight: 400;
+
+  src: local("Roboto"),
+       url("../fonts/Impact.otf") format("opentype"),
+
+}
+@font-face {
+  font-family: 'Inter';
+  font-style:  normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("Inter-Light.woff2?v=3.12") format("woff2"),
+       url("Inter-Light.woff?v=3.12") format("woff");
+}
+/*---------------------------CSS Reset---------------------------*/
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  margin:0px;
+  padding:0px;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+#root, #__next {
+  isolation: isolate;
+}
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+}
+html{
+  font-size:12px;
+}
+/*-------------------------------ОСНОВНОЙ КОД------------------------------*/
+body{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 5rem;
+  padding-right: 5rem;
+}
+.title_and_img{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+.title_container{
+  width:fit-content;
+  height: fit-content;
+}
+.title{
+  width:62rem;
+  font-family: "Impact", sans-serif;
+  font-size:45px;
+  height:auto;
+  text-transform: uppercase;
+}
+.auth_block__container{
+    display: grid;
+    grid-template-columns: 7rem repeat(9, 3.7rem);
+    grid-template-rows: 8rem repeat(7, 6.5rem);
+    grid-template-areas: 
+    "A B B B B B B B B B"
+    "D C C C C C C C C C"
+    "D C C C C C C C C C"
+    "D C C C C C C C C C"
+    "D C C C C C C C C C"
+    "D C C C C C C C C C"
+    "D C C C C C C C C C"
+    "D C C C C C C C C C";
+}
+.width-filler{
+  width: calc(9*3.7rem);
+  height:8rem;
+  grid-area: B;
+}
+.height-filler{
+  width: 8rem;
+  height:calc(7*6.5rem);
+  grid-area: D;
+}
+.auth_block__img{
+  grid-area: A;
+  width:7rem;
+  height:6.5rem;
+}
+.auth_block{
+  grid-area: C;
+  width: calc(9*3.7rem);
+  height: calc(7*6,25rem);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
