@@ -291,7 +291,7 @@ const Home = () => {
                   <ul className="advantages_wrap">
                     {tariff.features.map((feature, index) => (
                       <li key={index} className="advantage">
-                        <img src={TickImage} alt="✓" />
+                        <img src={TickImage} alt="✓" className="Tick" />
                         <p>{feature}</p>
                       </li>
                     ))}

@@ -986,6 +986,20 @@ h6 {
   .cards_container {
     gap: 2rem;
   }
+  .current_price{
+    font-size: 20px;
+  }
+  .default_price{
+    font-size: 15px;
+  }
+  .Tick{
+    width:1.5rem;
+    height: 1.5rem;
+  }
+  .advantage{
+    justify-content: left;
+    gap:2px;
+  }
   
   footer {
     padding: 1.5rem 1rem;
@@ -1004,51 +1018,79 @@ h6 {
 }
 
 @media (max-width: 480px) {
+  /* Улучшения для карусели */
+  .why_us_slider__container {
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem 0;
+  }
+
+  .slider-wrapper {
+    width: 100%;
+    max-width: 280px;
+  }
+
   .slider_objects__container {
-    padding: 0 20px;
+    gap: 1rem;
+    padding: 0 1rem;
   }
-  
+
   .slider_object {
-    flex: 0 0 280px;
-    height: 160px;
+    flex: 0 0 260px;
+    height: 140px;
+    border-radius: 8px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08); /* Уменьшенная тень */
+    margin: 0 2px; /* Добавляем небольшой отступ */
   }
-  
+
+  .slider_object.active {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    transform: scale(1);
+  }
+
   .slider_object__content {
-    padding: 1.5rem;
+    padding: 1.2rem;
   }
-  
+
   .slider_object__img {
-    width: 48px;
-    height: 48px;
-    margin-bottom: 1rem;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 0.8rem;
   }
-  
+
   .slider_object__text {
-    font-size: 14px;
+    font-size: 13px;
+    line-height: 1.3;
   }
-  
+
+  /* Более круглые кнопки */
   .slider-arrow {
-    padding: 0.8rem;
+    padding: 0.7rem;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 50%; /* Делаем идеально круглыми */
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  
+
   .slider-arrow img {
-    width: 32px;
-    height: 32px;
+    width: 24px;
+    height: 24px;
   }
-  
-  .card {
-    width: 100%;
-    max-width: 300px;
+
+  .slider-indicators {
+    margin-top: 1.5rem;
+    gap: 0.6rem;
   }
-  
-  #about_us__title {
-    font-size: 32px;
-  }
-  
-  .ask_for_data__button {
-    width: 100%;
-    max-width: 300px;
-    font-size: 1.5rem;
+
+  .indicator {
+    width: 8px;
+    height: 8px;
   }
 }
 
