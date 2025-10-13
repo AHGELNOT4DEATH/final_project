@@ -110,6 +110,51 @@ body{
 .auth_block{
   grid-area: C;
   width: calc(9*3.7rem);
-  height: calc(7*6,25rem);
+  height: calc(7*6.25rem);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+}
+.auth_block__tabs___container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-bottom:3rem;
+  font-family: "Inter", sans-serif;
+}
+.log-in__tab{
+  width:10rem;
+  height:2.5rem;
+  border:none;
+  color:#029491;
+  background-color: white;
+  border-bottom:1px solid #029491;
+}
+.registrate__tab{
+  width:14rem;
+  height:2.5rem;
+  border:none;
+  border-bottom:1px solid  gray;
+  color:gray;
+  background-color: white;
+}
+.auth_form, .log-in__input-container{
+  display: flex;
+  flex-direction: column;
+}
+.log-in__input-container{
+  align-self:center;
+}
+.log-in__input{
+  width:25rem;
+  height:3rem;
+  margin-top:0.5rem;
+  margin-bottom:1rem;
+  border:1px solid grey;
+  border-radius: 5px;
+}
+.log-in__label{
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  color:gray;
 }
