@@ -106,7 +106,7 @@ html {
     gap:2rem;
 }
 .Search_form_left-part{
-    width: 12rem;
+    width: 40.5rem;
     height:auto;
     display: flex;
     flex-direction: column;
@@ -237,4 +237,222 @@ html {
     align-self:end;
     width:fit-content;
     height:fit-content;
+}
+/* Стили для неактивной кнопки */
+.Search_button.disabled,
+.Search_button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.Search_button:disabled:hover {
+  background-color: #ccc;
+}
+.mobile_images{
+    display: none;
+}
+/*---------------------------МОБИЛЬНАЯ АДАПТАЦИЯ---------------------------*/
+@media (max-width: 1024px) {
+    .search-page {
+        flex-direction: column;
+        padding: 2rem;
+        gap: 3rem;
+    }
+
+    .Search_left_part {
+        width: 100%;
+        gap: 2rem;
+    }
+
+    .Search_title__box {
+        width: 100%;
+        text-align: center;
+    }
+
+    .Search_title {
+        width: 100%;
+        font-size: 32px;
+        text-align: center;
+    }
+
+    .Search_subtitle {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .Search_form_container {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .Search_form {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .Search_form_left-part {
+        width: 100%;
+        gap: 2rem;
+    }
+
+    .Search_form__left-part__input____container {
+        margin-top: 0;
+    }
+
+    .Search_input {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    .Search_form__right-part {
+            width: 100%;
+            margin-top: 0;
+            gap: 2rem;
+    }
+
+    .checkboxes {
+        width: 100%;
+    }
+
+    .Search_button__container {
+        align-self: center;
+        width: 100%;
+        text-align: center;
+    }
+
+    .Search_button {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .Search_right_part {
+        display: none; /* Скрываем правую часть на мобильных */
+    }
+    .mobile_images{
+        display: block;
+    }
+}
+
+@media (max-width: 768px) {
+    .search-page {
+        padding: 1rem;
+        gap: 2rem;
+    }
+
+    .Search_title {
+        font-size: 24px;
+    }
+
+    .Search_subtitle {
+        font-size: 16px;
+    }
+
+    .Search_form_container {
+        padding: 1.5rem;
+    }
+
+    .Search_label {
+        font-size: 16px;
+    }
+
+    .Search_input {
+        height: 2.8rem;
+        font-size: 16px;
+    }
+
+    .custom-checkbox {
+        font-size: 14px;
+    }
+
+    .button_subitle {
+        font-size: 14px;
+    }
+    .mobile_images{
+        display: block;
+    }
+}
+
+@media (max-width: 480px) {
+    .Search_title {
+        font-size: 20px;
+    }
+
+    .Search_subtitle {
+        font-size: 14px;
+    }
+
+    .Search_form_container {
+        padding: 1rem;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .Search_form {
+        gap: 1.5rem;
+    }
+
+    .Search_form_left-part {
+        gap: 1.5rem;
+    }
+
+    .date_input__container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .checkboxes {
+        gap: 0.8rem;
+    }
+
+    .custom-checkbox {
+        font-size: 13px;
+    }
+
+    .checkbox-text {
+        padding-left: 25px;
+    }
+
+    .checkbox-text::before {
+        width: 18px;
+        height: 18px;
+    }
+
+    .Search_button {
+        height: 3rem;
+        font-size: 14px;
+    }
+
+    .button_subitle {
+        font-size: 12px;
+    }
+    .mobile_images{
+        display: block;
+    }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 360px) {
+    .mobile_images{
+        display: block;
+    }
+    .Search_title {
+        font-size: 18px;
+    }
+
+    .Search_subtitle {
+        font-size: 13px;
+    }
+
+    .Search_label {
+        font-size: 14px;
+    }
+
+    .Search_input {
+        height: 2.5rem;
+        font-size: 14px;
+    }
+
+    .custom-checkbox {
+        font-size: 12px;
+    }
 }

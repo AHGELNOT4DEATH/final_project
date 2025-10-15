@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import './Search.css';
@@ -6,7 +6,6 @@ import './Search.css';
 // Импорт изображений
 import SearchFolders from '../../assets/Images/Search_folders.svg';
 import SearchBigImg from '../../assets/Images/Search_big-img.svg';
-import TickIcon from '../../assets/Images/Tick.svg';
 
 const Search = () => {
   const { isLoggedIn } = useAuth();
@@ -28,12 +27,27 @@ const Search = () => {
     newsDigests: false
   });
 
+  const [isFormValid, setIsFormValid] = useState(false);
+
   // Проверка авторизации
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isLoggedIn) {
       navigate('/');
     }
   }, [isLoggedIn, navigate]);
+
+  // Проверка валидности формы
+  useEffect(() => {
+    const { inn, documentCount, startDate, endDate } = formData;
+    
+    // Простая проверка заполненности обязательных полей
+    const isValid = inn.trim() !== '' && 
+                   documentCount.trim() !== '' && 
+                   startDate.trim() !== '' && 
+                   endDate.trim() !== '';
+    
+    setIsFormValid(isValid);
+  }, [formData]);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -46,15 +60,14 @@ const Search = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     
+    if (!isFormValid) return;
+    
     // Здесь будет валидация и отправка запроса
     console.log('Form data:', formData);
     
     // После успешного поиска переходим на страницу результатов
     navigate('/results');
   };
-
-  // Проверка заполненности обязательных полей
-  const isFormValid = formData.inn && formData.documentCount && formData.startDate && formData.endDate;
 
   return (
     <div className="search-page">
@@ -70,7 +83,7 @@ const Search = () => {
         
         <div className="Search_form_container">
           <form className="Search_form" onSubmit={handleSubmit}>
-            <div className="Search_form__left-part">
+            <div className="Search_form_left-part">
               <div className="Search_form__left-part__input____container">
                 <label className="Search_label">ИНН компании*</label>
                 <input 
@@ -80,7 +93,6 @@ const Search = () => {
                   value={formData.inn}
                   onChange={handleInputChange}
                   placeholder="10 цифр"
-                  required
                 />
               </div>
               
@@ -95,7 +107,6 @@ const Search = () => {
                   <option value="">Любая</option>
                   <option value="positive">Позитивная</option>
                   <option value="negative">Негативная</option>
-                  <option value="neutral">Любая</option>
                 </select>
               </div>
               
@@ -108,9 +119,6 @@ const Search = () => {
                   value={formData.documentCount}
                   onChange={handleInputChange}
                   placeholder="От 1 до 1000"
-                  min="1"
-                  max="1000"
-                  required
                 />
               </div>
               
@@ -123,8 +131,6 @@ const Search = () => {
                     name="startDate"
                     value={formData.startDate}
                     onChange={handleInputChange}
-                    placeholder="Дата начала"
-                    required
                   />
                   <input 
                     className="Search_input"
@@ -132,8 +138,6 @@ const Search = () => {
                     name="endDate"
                     value={formData.endDate}
                     onChange={handleInputChange}
-                    placeholder="Дата конца"
-                    required
                   />
                 </div>
               </div>
@@ -227,7 +231,7 @@ const Search = () => {
                 >
                   Поиск
                 </button>
-                <p className="button_subtitle">* Обязательные к заполнению поля</p>
+                <p className="button_subitle">* Обязательные к заполнению поля</p>
               </div>
             </div>
           </form>
