@@ -1,0 +1,203 @@
+/*---------------------------Fonts connection---------------------------*/
+@font-face {
+  font-family: "Impact";
+  font-style: normal;
+  font-weight: 400;
+
+  src: local("Roboto"),
+       url("../../assets/fonts/Impact.otf") format("opentype"),
+
+}
+@font-face {
+  font-family: 'Inter';
+  font-style:  normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("Inter-Light.woff2?v=3.12") format("woff2"),
+       url("Inter-Light.woff?v=3.12") format("woff");
+}
+/*---------------------------CSS Reset---------------------------*/
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+h1 {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+h6, p, span, a, label, input{
+    font-family:"Inter", sans-serif;
+}
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+html {
+  font-size: 12px;
+}
+
+/*-------------------------------ОСНОВНОЙ КОД------------------------------*/
+body{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left:4rem;
+    padding-right: 4rem;
+}
+.Search_left_part{
+    display: flex;
+    flex-direction: column;
+    gap:4rem;
+    width:calc((120rem - 4rem*2) - 39rem);
+    height:fit-content;
+}
+.Search_title__box{
+    display: flex;
+    flex-direction: column;
+    width:68rem;
+    height:fit-content;
+}
+.Search_title__container{
+    width:fit-content;
+    height: fit-content;
+}
+.Search_title{
+    width:auto;
+    height:auto;
+    font-size:60px;
+}
+.Search_subtitle__container{
+    width:fit-content;
+    height:fit-content;
+}
+.Search_subtitle{
+    width:auto;
+    height:auto;
+    font-size:26px;
+    font-weight: 100;
+}
+.Search_form_container{
+    border:none;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    padding:3rem;
+}
+.Search_form{
+    width: auto;
+    height:auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap:1rem;
+}
+.Search_form_left-part{
+    width: 12rem;
+    height:auto;
+    display: flex;
+    flex-direction: column;
+    gap:2.5rem
+}
+.Search_form__left-part__input____container{
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+    margin-top:2rem;
+}
+.Search_label{
+    font-size:20px;
+}
+.Search_input{
+    width:20rem;
+    height:3rem;
+    border:1px solid gray;
+    border-radius: 3px;
+    font-size: 20px;
+    text-align: center;
+}
+.Search_form__right-part{
+    width:28rem;
+    margin-top:2rem;
+}
+
+
+
+
+
+
+
+.checkboxes{
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+    width:fit-content;
+}
+.custom-checkbox {
+  width:fit-content;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  color: #000;
+}
+.checkbox-input {
+  display: none;
+}
+
+.checkbox-text {
+  position: relative;
+  padding-left: 30px;
+}
+
+.checkbox-text::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border: 2px solid #C7C7C7;
+  border-radius: 3px;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.checkbox-input:checked + .checkbox-text::before {
+  background: url(../../assets/Images/Tick.svg);
+  background-size:cover;
+  border-color: #5970FF;
+}
+/* Состояния при наведении */
+.custom-checkbox:hover .checkbox-text::before {
+  border-color: #5970FF;
+}
+
+/* Отключенное состояние */
+.checkbox-input:disabled + .checkbox-text::before {
+  background: #F5F5F5;
+  border-color: #E0E0E0;
+  cursor: not-allowed;
+}
+
+.checkbox-input:disabled + .checkbox-text {
+  color: #999;
+  cursor: not-allowed;
+}

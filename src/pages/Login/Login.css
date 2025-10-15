@@ -1,3 +1,21 @@
+/*---------------------------Fonts connection---------------------------*/
+@font-face {
+  font-family: "Impact";
+  font-style: normal;
+  font-weight: 400;
+
+  src: local("Roboto"),
+       url("../../assets/fonts/Impact.otf") format("opentype"),
+
+}
+@font-face {
+  font-family: 'Inter';
+  font-style:  normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("Inter-Light.woff2?v=3.12") format("woff2"),
+       url("Inter-Light.woff?v=3.12") format("woff");
+}
 /*---------------------------CSS Reset---------------------------*/
 *, *::before, *::after {
   box-sizing: border-box;
