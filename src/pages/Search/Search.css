@@ -51,7 +51,7 @@ html {
 }
 
 /*-------------------------------ОСНОВНОЙ КОД------------------------------*/
-body{
+.search-page{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
