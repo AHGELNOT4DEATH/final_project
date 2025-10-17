@@ -6,7 +6,7 @@ import './Search.css';
 // Импорт изображений
 import SearchFolders from '../../assets/Images/Search_folders.svg';
 import SearchBigImg from '../../assets/Images/Search_big-img.svg';
-
+import SearchDocumentImg from '../../assets/Images/Document.svg';
 const Search = () => {
   const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
@@ -76,8 +76,12 @@ const Search = () => {
           <div className="Search_title__container">
             <h1 className="Search_title">Найдите необходимые данные в пару кликов.</h1>
           </div>
+          
           <div className="Search_subtitle__container">
             <h6 className="Search_subtitle">Задайте параметры поиска. Чем больше заполните, тем точнее поиск</h6>
+          </div>
+          <div className="Document_img__container"> 
+            <img src={SearchDocumentImg} alt="Document_img"/>
           </div>
         </div>
         
@@ -245,6 +249,9 @@ const Search = () => {
         <div className="Search_big-img__container">
           <img src={SearchBigImg} alt="Поиск данных" />
         </div>
+      </div>
+      <div className="mobile_images">
+        <img src={SearchBigImg} alt="Big img"/>  
       </div>
     </div>
   );

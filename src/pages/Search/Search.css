@@ -253,6 +253,13 @@ html {
 }
 /*---------------------------МОБИЛЬНАЯ АДАПТАЦИЯ---------------------------*/
 @media (max-width: 1024px) {
+    html{
+        font-size: 11px;
+    }
+    .Document_img{
+        width:2rem;
+        height: 2.5rem;
+    }
     .search-page {
         flex-direction: column;
         padding: 2rem;
@@ -262,7 +269,7 @@ html {
     .Search_left_part {
         width: 100%;
         gap: 2rem;
-    }
+    }   
 
     .Search_title__box {
         width: 100%;
@@ -271,8 +278,9 @@ html {
 
     .Search_title {
         width: 100%;
-        font-size: 32px;
+        font-size: 35px;
         text-align: center;
+        font-family: "Inter", sans-serif;
     }
 
     .Search_subtitle {
@@ -335,6 +343,13 @@ html {
 }
 
 @media (max-width: 768px) {
+    html{
+        font-size: 10px;
+    }
+    .Document_img{
+        width:2rem;
+        height: 2.5rem;
+    }
     .search-page {
         padding: 1rem;
         gap: 2rem;
@@ -371,13 +386,25 @@ html {
     .mobile_images{
         display: block;
     }
+    .Search_right_part {
+        display: none; /* Скрываем правую часть на мобильных */
+    }
 }
 
 @media (max-width: 480px) {
+    html{
+        font-size: 10px;
+    }
+    .Document_img{
+        width:2rem;
+        height: 2.5rem;
+    }
     .Search_title {
         font-size: 20px;
     }
-
+    .Search_right_part {
+        display: none; /* Скрываем правую часть на мобильных */
+    }
     .Search_subtitle {
         font-size: 14px;
     }
@@ -432,13 +459,22 @@ html {
 
 /* Для очень маленьких экранов */
 @media (max-width: 360px) {
+    html{
+        font-size: 8px;
+    }
+    .Document_img, .Document_img__container{
+        width:2rem;
+        height: 2.5rem;
+    }
     .mobile_images{
         display: block;
     }
     .Search_title {
-        font-size: 18px;
+        font-size: 32px;
     }
-
+    .Search_right_part {
+        display: none; /* Скрываем правую часть на мобильных */
+    }
     .Search_subtitle {
         font-size: 13px;
     }
