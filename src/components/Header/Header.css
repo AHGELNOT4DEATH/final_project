@@ -3,6 +3,9 @@
   display: flex;
   align-items: center;
   margin-right: 20px;
+  background-color: #D9D9D9;
+  border-radius: 3px;
+  padding:0.5rem;
 }
 
 .company_limit {
