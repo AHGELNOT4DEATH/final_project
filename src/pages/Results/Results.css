@@ -218,3 +218,508 @@ html {
   border:none;
   text-align: center;
 }
+
+/* ==================== ДЕСКТОПНАЯ ВЕРСИЯ ТАБЛИЦЫ ==================== */
+.histogram-table-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.table-scrollable-area {
+  display: flex;
+  width: 100%;
+  max-width: 800px;
+  border: 3px solid #029491;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Фиксированная левая колонка */
+.table-fixed-column {
+  flex-shrink: 0;
+  background: #029491;
+  z-index: 2;
+}
+
+.table-fixed-column table {
+  border-collapse: collapse;
+  height: 100%;
+}
+
+.fixed-header {
+  padding: 1rem;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  background: #029491;
+  border-bottom: 1px solid #ddd;
+  min-width: 120px;
+  font-family: "Inter", sans-serif;
+}
+
+.fixed-cell {
+  padding: 1rem;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  background: #029491;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  min-width: 120px;
+  font-family: "Inter", sans-serif;
+}
+
+.fixed-cell.data-label {
+  background: #029491 !important;
+}
+
+/* Прокручиваемая часть с данными */
+.table-data-container {
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+}
+
+/* Скрываем скроллбар */
+.table-data-container::-webkit-scrollbar {
+  display: none;
+}
+
+.table-data-container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.data-table {
+  width: max-content;
+  border-collapse: collapse;
+  font-family: "Inter", sans-serif;
+}
+
+/* Заголовки периодов */
+.period-header {
+  padding: 1rem 0.5rem;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #000;
+  border-bottom: 1px solid #ddd;
+  min-width: 100px;
+  background: white;
+}
+
+/* Ячейки с данными */
+.data-cell {
+  padding: 1rem 0.5rem;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 100;
+  background-color: white;
+  font-family: "Inter", sans-serif;
+  border-bottom: 1px solid #eee;
+  min-width: 100px;
+}
+
+/* Убираем границу у последней строки */
+.data-table tr:last-child .data-cell {
+  border-bottom: none;
+}
+
+/* Стрелки для прокрутки таблицы */
+.table-scroll-arrow {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.8rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 3;
+  flex-shrink: 0;
+}
+
+.table-scroll-arrow:hover:not(:disabled) {
+  background: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  transform: scale(1.05);
+}
+
+.table-scroll-arrow:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.table-scroll-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.table-scroll-arrow img {
+  width: 24px;
+  height: 24px;
+}
+
+/* ==================== МОБИЛЬНАЯ ВЕРСИЯ ТАБЛИЦЫ ==================== */
+.mobile-table-container {
+  width: 100%;
+  margin-top: 1rem;
+  display: none; /* По умолчанию скрыта */
+}
+
+.mobile-table {
+  border: 2px solid #029491;
+  border-radius: 10px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-table-header {
+  display: flex;
+  background: #029491;
+  color: white;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.mobile-table-row {
+  display: flex;
+  border-bottom: 1px solid #eee;
+}
+
+.mobile-table-row:last-child {
+  border-bottom: none;
+}
+
+.mobile-period {
+  flex: 2;
+  padding: 1rem 0.8rem;
+  font-weight: 500;
+  border-right: 1px solid #eee;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+}
+
+.mobile-total {
+  flex: 1;
+  padding: 1rem 0.8rem;
+  text-align: center;
+  border-right: 1px solid #eee;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.mobile-risks {
+  flex: 1;
+  padding: 1rem 0.8rem;
+  text-align: center;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Заголовки в мобильной версии */
+.mobile-table-header .mobile-period,
+.mobile-table-header .mobile-total,
+.mobile-table-header .mobile-risks {
+  color: white;
+  font-weight: 600;
+  background: #029491;
+}
+
+/* Чередование цветов строк для лучшей читаемости */
+.mobile-table-row:nth-child(even) {
+  background: #f8f9fa;
+}
+
+.mobile-table-row:nth-child(odd) {
+  background: white;
+}
+
+/* ==================== МОБИЛЬНАЯ АДАПТАЦИЯ ВСЕЙ СТРАНИЦЫ ==================== */
+@media (max-width: 768px) {
+  .body__wrap_results {
+    padding: 0 1rem;
+    align-content: stretch;
+  }
+
+  .Results_first-part {
+    flex-direction: column;
+    width: 100%;
+    gap: 2rem;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .first-part__title___container {
+    gap: 1.5rem;
+    width: 100%;
+  }
+
+  .first-part__title {
+    font-size: 24px;
+    line-height: 1.2;
+  }
+
+  .first-part__subtitle {
+    font-size: 16px;
+  }
+
+  .first-part__img___container img {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .Results_second-part {
+    width: 100%;
+    margin-bottom: 3rem;
+  }
+
+  .second-part__title__container {
+    gap: 1rem;
+  }
+
+  .second-part__title,
+  .third-part__title {
+    font-size: 20px;
+  }
+
+  .second-part__subtitle {
+    font-size: 14px;
+  }
+
+  /* Переключаем таблицы на мобильных */
+  .histogram-table-container {
+    display: none !important;
+  }
+  
+  .mobile-table-container {
+    display: block !important;
+  }
+  
+  /* Адаптация мобильной таблицы */
+  .mobile-period {
+    flex: 3;
+    font-size: 12px;
+    padding: 0.8rem 0.6rem;
+  }
+  
+  .mobile-total,
+  .mobile-risks {
+    flex: 1;
+    font-size: 12px;
+    padding: 0.8rem 0.4rem;
+  }
+  
+  .mobile-table-header .mobile-period,
+  .mobile-table-header .mobile-total,
+  .mobile-table-header .mobile-risks {
+    font-size: 13px;
+    padding: 0.8rem 0.6rem;
+  }
+
+  .Results_third-part {
+    width: 100%;
+    gap: 2rem;
+  }
+
+  .third-part__documents__container {
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+  }
+
+  .third-part__card {
+    width: 100%;
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+
+  /* Переключаем изображения на мобильные */
+  .card__img {
+    display: none !important;
+  }
+
+  .card__img__mobile {
+    display: block !important;
+    width: 100%;
+    height: auto;
+  }
+
+  .card__date_and_source {
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 14px;
+  }
+
+  .card__title {
+    font-size: 18px;
+    width: 100%;
+    line-height: 1.3;
+  }
+
+  .card__tag {
+    width: fit-content;
+    padding: 0.3rem 0.8rem;
+    font-size: 12px;
+  }
+
+  .card__text___container {
+    width: 100%;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .card__button_and_word-amount {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .card__button {
+    width: 100%;
+    max-width: 250px;
+    height: 3rem;
+    font-size: 16px;
+    order: 2;
+  }
+
+  .card__word-amount {
+    order: 1;
+    font-size: 14px;
+    align-self: flex-start;
+  }
+
+  .third-part__button__container {
+    margin-bottom: 3rem;
+    width: 100%;
+  }
+
+  .third-part__button {
+    width: 100%;
+    max-width: 300px;
+    height: 4rem;
+    font-size: 18px;
+  }
+}
+
+/* Дополнительная адаптация для очень маленьких экранов */
+@media (max-width: 480px) {
+  .body__wrap_results {
+    padding: 0 0.5rem;
+  }
+
+  .first-part__title {
+    font-size: 20px;
+  }
+
+  .first-part__subtitle {
+    font-size: 14px;
+  }
+
+  /* Мобильная таблица на очень маленьких экранах */
+  .mobile-period {
+    font-size: 11px;
+    padding: 0.7rem 0.5rem;
+  }
+  
+  .mobile-total,
+  .mobile-risks {
+    font-size: 11px;
+    padding: 0.7rem 0.3rem;
+  }
+  
+  .mobile-table-header .mobile-period,
+  .mobile-table-header .mobile-total,
+  .mobile-table-header .mobile-risks {
+    font-size: 12px;
+    padding: 0.7rem 0.5rem;
+  }
+
+  .third-part__card {
+    padding: 1rem;
+  }
+
+  .card__title {
+    font-size: 16px;
+  }
+
+  .card__button {
+    font-size: 14px;
+    height: 2.5rem;
+  }
+}
+
+/* Адаптация десктопной таблицы для средних экранов */
+@media (max-width: 768px) {
+  .histogram-table-container {
+    gap: 0.5rem;
+  }
+
+  .table-scrollable-area {
+    max-width: 100%;
+  }
+
+  .fixed-header,
+  .fixed-cell {
+    padding: 0.8rem;
+    font-size: 12px;
+    min-width: 100px;
+  }
+
+  .period-header {
+    padding: 0.8rem 0.3rem;
+    font-size: 12px;
+    min-width: 80px;
+  }
+
+  .data-cell {
+    padding: 0.8rem 0.3rem;
+    font-size: 14px;
+    min-width: 80px;
+  }
+
+  .table-scroll-arrow {
+    padding: 0.6rem;
+  }
+
+  .table-scroll-arrow img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .fixed-header,
+  .fixed-cell {
+    min-width: 90px;
+    font-size: 11px;
+    padding: 0.6rem;
+  }
+
+  .period-header {
+    min-width: 70px;
+    font-size: 11px;
+    padding: 0.6rem 0.2rem;
+  }
+
+  .data-cell {
+    min-width: 70px;
+    font-size: 12px;
+    padding: 0.6rem 0.2rem;
+  }
+}

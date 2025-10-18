@@ -7,6 +7,7 @@ import './Search.css';
 import SearchFolders from '../../assets/Images/Search_folders.svg';
 import SearchBigImg from '../../assets/Images/Search_big-img.svg';
 import SearchDocumentImg from '../../assets/Images/Document.svg';
+
 const Search = () => {
   const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
@@ -28,6 +29,12 @@ const Search = () => {
   });
 
   const [isFormValid, setIsFormValid] = useState(false);
+  const [errors, setErrors] = useState({
+    inn: '',
+    documentCount: '',
+    dateRange: ''
+  });
+  const [showErrors, setShowErrors] = useState(false);
 
   // Проверка авторизации
   useEffect(() => {
@@ -36,21 +43,72 @@ const Search = () => {
     }
   }, [isLoggedIn, navigate]);
 
-  // Проверка валидности формы
-  useEffect(() => {
+  // Функция валидации ИНН - только цифры
+  const validateInn = (inn) => {
+    if (!inn.trim()) return 'Поле обязательно для заполнения';
+    if (!/^\d+$/.test(inn)) return 'Введите корректные данные';
+    if (!/^\d{10}$/.test(inn)) return 'ИНН должен содержать 10 цифр';
+    return '';
+  };
+
+  // Функция валидации количества документов
+  const validateDocumentCount = (count) => {
+    if (!count.trim()) return 'Поле обязательно для заполнения';
+    const num = parseInt(count);
+    if (isNaN(num) || num < 1 || num > 1000) return 'От 1 до 1000';
+    return '';
+  };
+
+  // Функция валидации дат
+  const validateDates = (startDate, endDate) => {
+    if (!startDate || !endDate) return 'Обе даты обязательны для заполнения';
+    
+    const today = new Date().toISOString().split('T')[0];
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const currentDate = new Date(today);
+    
+    if (start > currentDate) return 'Дата начала не может быть в будущем';
+    if (end > currentDate) return 'Дата окончания не может быть в будущем';
+    if (start > end) return 'Дата начала не может быть позже даты окончания';
+    
+    return '';
+  };
+
+  // Проверка заполненности обязательных полей (минимум 1 символ)
+  const checkFormFilled = () => {
     const { inn, documentCount, startDate, endDate } = formData;
     
-    // Простая проверка заполненности обязательных полей
-    const isValid = inn.trim() !== '' && 
-                   documentCount.trim() !== '' && 
-                   startDate.trim() !== '' && 
-                   endDate.trim() !== '';
-    
-    setIsFormValid(isValid);
+    return inn.trim() !== '' && 
+           documentCount.trim() !== '' && 
+           startDate.trim() !== '' && 
+           endDate.trim() !== '';
+  };
+
+  // Проверка валидности всей формы
+  useEffect(() => {
+    const isFilled = checkFormFilled();
+    setIsFormValid(isFilled);
   }, [formData]);
+
+  // Обработчик ввода для ИНН - только цифры
+  const handleInnChange = (e) => {
+    const value = e.target.value.replace(/\D/g, ''); // Удаляем все не-цифры
+    setFormData(prev => ({
+      ...prev,
+      inn: value
+    }));
+  };
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
+    
+    // Для поля ИНН используем отдельный обработчик
+    if (name === 'inn') {
+      handleInnChange(e);
+      return;
+    }
+    
     setFormData(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : value
@@ -62,7 +120,25 @@ const Search = () => {
     
     if (!isFormValid) return;
     
-    // Здесь будет валидация и отправка запроса
+    // Валидация при отправке формы
+    const innError = validateInn(formData.inn);
+    const docCountError = validateDocumentCount(formData.documentCount);
+    const dateError = validateDates(formData.startDate, formData.endDate);
+    
+    setErrors({
+      inn: innError,
+      documentCount: docCountError,
+      dateRange: dateError
+    });
+    
+    // Показываем ошибки только после нажатия кнопки
+    setShowErrors(true);
+    
+    // Если есть ошибки - не отправляем форму
+    if (innError || docCountError || dateError) {
+      return;
+    }
+    
     console.log('Form data:', formData);
     
     // После успешного поиска переходим на страницу результатов
@@ -88,18 +164,24 @@ const Search = () => {
         <div className="Search_form_container">
           <form className="Search_form" onSubmit={handleSubmit}>
             <div className="Search_form_left-part">
+              {/* Поле ИНН с валидацией */}
               <div className="Search_form__left-part__input____container">
-                <label className="Search_label">ИНН компании*</label>
+                <label className={`Search_label ${showErrors && errors.inn ? 'label-error' : ''}`}>
+                  ИНН компании*
+                </label>
                 <input 
-                  className="Search_input"
+                  className={`Search_input ${showErrors && errors.inn ? 'input-error' : ''}`}
                   type="text" 
                   name="inn"
                   value={formData.inn}
                   onChange={handleInputChange}
                   placeholder="10 цифр"
+                  maxLength="10"
                 />
+                {showErrors && errors.inn && <div className="error-message">{errors.inn}</div>}
               </div>
               
+              {/* Поле тональности */}
               <div className="Search_form__left-part__input____container">
                 <label className="Search_label">Тональность</label>
                 <select 
@@ -114,36 +196,46 @@ const Search = () => {
                 </select>
               </div>
               
+              {/* Поле количества документов с валидацией */}
               <div className="Search_form__left-part__input____container">
-                <label className="Search_label">Количество документов в выдаче*</label>
+                <label className={`Search_label ${showErrors && errors.documentCount ? 'label-error' : ''}`}>
+                  Количество документов в выдаче*
+                </label>
                 <input 
-                  className="Search_input"
+                  className={`Search_input ${showErrors && errors.documentCount ? 'input-error' : ''}`}
                   type="number" 
                   name="documentCount"
                   value={formData.documentCount}
                   onChange={handleInputChange}
                   placeholder="От 1 до 1000"
+                  min="1"
+                  max="1000"
                 />
+                {showErrors && errors.documentCount && <div className="error-message">{errors.documentCount}</div>}
               </div>
               
+              {/* Поле диапазона дат с валидацией */}
               <div className="Search_form__left-part__input____container">
-                <label className="Search_label">Диапазон поиска*</label>
+                <label className={`Search_label ${showErrors && errors.dateRange ? 'label-error' : ''}`}>
+                  Диапазон поиска*
+                </label>
                 <div className="date_input__container">
                   <input 
-                    className="Search_input"
+                    className={`Search_input ${showErrors && errors.dateRange ? 'input-error' : ''}`}
                     type="date" 
                     name="startDate"
                     value={formData.startDate}
                     onChange={handleInputChange}
                   />
                   <input 
-                    className="Search_input"
+                    className={`Search_input ${showErrors && errors.dateRange ? 'input-error' : ''}`}
                     type="date" 
                     name="endDate"
                     value={formData.endDate}
                     onChange={handleInputChange}
                   />
                 </div>
+                {showErrors && errors.dateRange && <div className="error-message">{errors.dateRange}</div>}
               </div>
             </div>
             
@@ -235,7 +327,7 @@ const Search = () => {
                 >
                   Поиск
                 </button>
-                <p className="button_subitle">* Обязательные к заполнению поля</p>
+                <p className="button_subtitle">* Обязательные к заполнению поля</p>
               </div>
             </div>
           </form>

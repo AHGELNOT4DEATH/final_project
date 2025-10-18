@@ -1,17 +1,76 @@
-import React from 'react';
+// Results.jsx - С МОБИЛЬНОЙ АДАПТАЦИЕЙ ТАБЛИЦЫ
+import React, { useRef, useState, useEffect } from 'react';
 import './Results.css';
 
 // Импорт изображений
 import ResultsLadyImg from '../../assets/Images/Results__lady_img.svg';
-import ExelResults from '../../assets/Images/Exel__results.svg';
 import ResultDocumentImg1 from '../../assets/Images/Result__document__img_1.png';
 import ResultDocumentImg1Mobile from '../../assets/Images/Result__document__img_1__mobile.png';
 import ResultDocumentImg2 from '../../assets/Images/Result__document__img_2.png';
 import ResultDocumentImg2Mobile from '../../assets/Images/Result__document__img_2__mobile.png';
+import LeftArrow from '../../assets/Images/Slider-arrow__left.svg';
+import RightArrow from '../../assets/Images/Slider-arrow__right.svg';
 
 const Results = () => {
+  const tableDataRef = useRef(null);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [maxScroll, setMaxScroll] = useState(0);
+
+  // Данные для таблицы
+  const tableData = [
+    { period: "10.09.2021", total: 5, risks: 0 },
+    { period: "17.09.2021", total: 2, risks: 0 },
+    { period: "20.09.2021", total: 6, risks: 0 },
+    { period: "12.10.2021", total: 8, risks: 2 },
+    { period: "15.10.2021", total: 1, risks: 0 },
+    { period: "16.10.2021", total: 0, risks: 2 },
+    { period: "17.10.2021", total: 4, risks: 0 },
+    { period: "18.10.2021", total: 3, risks: 0 }
+  ];
+
+  // Рассчитываем максимальную прокрутку
+  useEffect(() => {
+    const updateMaxScroll = () => {
+      if (tableDataRef.current) {
+        const scrollWidth = tableDataRef.current.scrollWidth;
+        const clientWidth = tableDataRef.current.clientWidth;
+        setMaxScroll(Math.max(0, scrollWidth - clientWidth));
+      }
+    };
+
+    updateMaxScroll();
+    window.addEventListener('resize', updateMaxScroll);
+    return () => window.removeEventListener('resize', updateMaxScroll);
+  }, [tableData]);
+
+  // Прокрутка влево
+  const scrollTableLeft = () => {
+    if (tableDataRef.current) {
+      const newPosition = Math.max(scrollPosition - 150, 0);
+      tableDataRef.current.scrollLeft = newPosition;
+      setScrollPosition(newPosition);
+    }
+  };
+
+  // Прокрутка вправо
+  const scrollTableRight = () => {
+    if (tableDataRef.current) {
+      const newPosition = Math.min(scrollPosition + 150, maxScroll);
+      tableDataRef.current.scrollLeft = newPosition;
+      setScrollPosition(newPosition);
+    }
+  };
+
+  // Обработчик скролла
+  const handleScroll = () => {
+    if (tableDataRef.current) {
+      setScrollPosition(tableDataRef.current.scrollLeft);
+    }
+  };
+
   return (
     <div className="body__wrap_results">
+      {/* Первая часть - заголовок и изображение */}
       <div className="Results_first-part">
         <div className="first-part__title___container">
           <h1 className="first-part__title">Ищем. Скоро будут результаты</h1>
@@ -22,22 +81,116 @@ const Results = () => {
         </div>
       </div>
       
+      {/* Вторая часть - общая сводка с таблицей */}
       <div className="Results_second-part">
         <div className="second-part__title__container">
           <h3 className="second-part__title">Общая сводка</h3>
           <p className="second-part__subtitle">Найдено 4 221 вариантов</p>
         </div>
-        <div className="second-part__img___container">
-          <img src={ExelResults} alt="График результатов" />
+        
+        {/* Десктопная версия таблицы с прокруткой */}
+        <div className="histogram-table-container desktop-version">
+          <button 
+            className="table-scroll-arrow left-arrow" 
+            onClick={scrollTableLeft}
+            disabled={scrollPosition === 0}
+          >
+            <img src={LeftArrow} alt="Прокрутить влево" />
+          </button>
+          
+          <div className="table-scrollable-area">
+            {/* Фиксированная левая колонка */}
+            <div className="table-fixed-column">
+              <table>
+                <thead>
+                  <tr>
+                    <th className="fixed-header">Период</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="fixed-cell data-label">Всего</td>
+                  </tr>
+                  <tr>
+                    <td className="fixed-cell data-label">Риски</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            {/* Прокручиваемая часть с данными */}
+            <div 
+              className="table-data-container"
+              ref={tableDataRef}
+              onScroll={handleScroll}
+            >
+              <table className="data-table">
+                <thead>
+                  <tr>
+                    {tableData.map((item, index) => (
+                      <th key={index} className="period-header">
+                        {item.period}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    {tableData.map((item, index) => (
+                      <td key={index} className="data-cell total">
+                        {item.total}
+                      </td>
+                    ))}
+                  </tr>
+                  <tr>
+                    {tableData.map((item, index) => (
+                      <td key={index} className="data-cell risks">
+                        {item.risks === 0 ? "0" : item.risks}
+                      </td>
+                    ))}
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <button 
+            className="table-scroll-arrow right-arrow" 
+            onClick={scrollTableRight}
+            disabled={scrollPosition >= maxScroll}
+          >
+            <img src={RightArrow} alt="Прокрутить вправо" />
+          </button>
+        </div>
+
+        {/* Мобильная версия таблицы */}
+        <div className="mobile-table-container mobile-version">
+          <div className="mobile-table">
+            <div className="mobile-table-header">
+              <div className="mobile-period">Период</div>
+              <div className="mobile-total">Всего</div>
+              <div className="mobile-risks">Риски</div>
+            </div>
+            
+            {tableData.map((item, index) => (
+              <div key={index} className="mobile-table-row">
+                <div className="mobile-period">{item.period}</div>
+                <div className="mobile-total">{item.total}</div>
+                <div className="mobile-risks">{item.risks === 0 ? "0" : item.risks}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
       
+      {/* Третья часть - список документов */}
       <div className="Results_third-part">
         <div className="third-part__title__container">
           <h3 className="third-part__title">Список документов</h3>
         </div>
         
         <div className="third-part__documents__container">
+          {/* Карточка 1 */}
           <div className="third-part__card">
             <div className="card__date_and_source">
               <p className="card__date">13.09.2021</p>
@@ -56,12 +209,8 @@ const Results = () => {
             </div>
             
             <div className="card__text___container">
-              <p className="card__text___first-part">
-                SkillFactory — школа для всех, кто хочет изменить свою карьеру и жизнь. С 2016 года обучение прошли 20 000+ человек из 40 стран с 4 континентов, самому взрослому студенту сейчас 86 лет. Выпускники работают в Сбере, Cisco, Bayer, Nvidia, МТС, Ростелекоме, Mail.ru, Яндексе, Ozon и других топовых компаниях.
-              </p>
-              <p className="card__text___second-part">
-                Принципы SkillFactory: акцент на практике, забота о студентах и ориентир на трудоустройство. 80% обучения — выполнение упражнений и реальных проектов. Каждого студента поддерживают менторы, 2 саппорт-линии и комьюнити курса. А карьерный центр помогает составить резюме, подготовиться к собеседованиям и познакомиться с IT-рекрутерами.
-              </p>
+              <p>SkillFactory — школа для всех, кто хочет изменить свою карьеру и жизнь...</p>
+              <p>Принципы SkillFactory: акцент на практике, забота о студентах и ориентир на трудоустройство...</p>
             </div>
             
             <div className="card__button_and_word-amount">
@@ -70,6 +219,7 @@ const Results = () => {
             </div>
           </div>
           
+          {/* Карточка 2 */}
           <div className="third-part__card">
             <div className="card__date_and_source">
               <p className="card__date">15.10.2021</p>
@@ -88,12 +238,8 @@ const Results = () => {
             </div>
             
             <div className="card__text___container">
-              <p className="card__text___first-part">
-                Кто такой Data Scientist и чем он занимается? Data Scientist — это специалист, который работает с большими массивами данных, чтобы с их помощью решить задачи бизнеса. Простой пример использования больших данных и искусственного интеллекта — умные ленты в социальных сетях. На основе ваших просмотров и лайков алгоритм выдает рекомендации с контентом, который может быть вам интересен. Эту модель создал и обучил дата-сайентист, и скорее всего, не один.
-              </p>
-              <p className="card__text___second-part">
-                В небольших компаниях и стартапах дата-сайентист делает все: собирает и очищает данные, создает математическую модель для их анализа, тестирует ее и презентует готовое решение бизнесу.
-              </p>
+              <p>Кто такой Data Scientist и чем он занимается? Data Scientist — это специалист...</p>
+              <p>В небольших компаниях и стартапах дата-сайентист делает все: собирает и очищает данные...</p>
             </div>
             
             <div className="card__button_and_word-amount">

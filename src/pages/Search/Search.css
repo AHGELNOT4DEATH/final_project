@@ -120,15 +120,57 @@ html {
 }
 .Search_label{
     font-size:20px;
+    color: #000;
+    transition: color 0.3s ease;
 }
+
+/* Стили для ошибок */
+.Search_label.label-error {
+    color: #FF5959 !important;
+}
+
 .Search_input{
     width:20rem;
     height:3rem;
-    border:1px solid gray;
+    border:1px solid #C7C7C7;
     border-radius: 3px;
     font-size: 20px;
     text-align: center;
+    transition: all 0.3s ease;
+    background: white;
 }
+
+.Search_input:focus {
+    border-color: #5970FF;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(89, 112, 255, 0.1);
+}
+
+/* Стили для полей с ошибками */
+.Search_input.input-error {
+    border-color: #FF5959 !important;
+    background-color: rgba(255, 89, 89, 0.05);
+    color: #FF5959;
+}
+
+.Search_input.input-error:focus {
+    border-color: #FF5959;
+    box-shadow: 0 0 0 2px rgba(255, 89, 89, 0.1);
+}
+
+/* Сообщения об ошибках */
+.error-message {
+    color: #FF5959;
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 0.5rem;
+    padding: 0.3rem 0.5rem;
+    background: rgba(255, 89, 89, 0.05);
+    border-radius: 3px;
+    border-left: 3px solid #FF5959;
+    font-family: "Inter", sans-serif;
+}
+
 .date_input__container{
     display: flex;
     flex-direction: row;
@@ -217,9 +259,21 @@ html {
     transition: background-color 0.3s;
     font-family: "Inter", sans-serif;
 }
-.button_subitle{
+
+.Search_button:hover:not(.disabled):not(:disabled) {
+    background-color: rgba(89, 112, 255, 0.9);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(89, 112, 255, 0.3);
+}
+
+.Search_button:active:not(.disabled):not(:disabled) {
+    transform: translateY(0);
+}
+.button_subtitle{
     color:gray;
     font-size:16px;
+    margin-top: 0.8rem;
+    text-align: center;
 }
 .Search_right_part{
     width: 40rem;
@@ -243,10 +297,14 @@ html {
 .Search_button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 .Search_button:disabled:hover {
   background-color: #ccc;
+  transform: none;
+  box-shadow: none;
 }
 .mobile_images{
     display: none;
@@ -340,6 +398,11 @@ html {
     .mobile_images{
         display: block;
     }
+
+    /* Адаптация ошибок для планшетов */
+    .error-message {
+        font-size: 13px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -380,7 +443,7 @@ html {
         font-size: 14px;
     }
 
-    .button_subitle {
+    .button_subtitle {
         font-size: 14px;
     }
     .mobile_images{
@@ -388,6 +451,13 @@ html {
     }
     .Search_right_part {
         display: none; /* Скрываем правую часть на мобильных */
+    }
+
+    /* Адаптация ошибок для мобильных */
+    .error-message {
+        font-size: 12px;
+        margin-top: 0.3rem;
+        padding: 0.2rem 0.4rem;
     }
 }
 
@@ -449,11 +519,17 @@ html {
         font-size: 14px;
     }
 
-    .button_subitle {
+    .button_subtitle {
         font-size: 12px;
     }
     .mobile_images{
         display: block;
+    }
+
+    /* Адаптация ошибок для маленьких экранов */
+    .error-message {
+        font-size: 11px;
+        border-left-width: 2px;
     }
 }
 
@@ -491,4 +567,23 @@ html {
     .custom-checkbox {
         font-size: 12px;
     }
+
+    .error-message {
+        font-size: 10px;
+    }
+}
+
+/* Анимация для появления ошибок */
+@keyframes errorPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+.Search_input.input-error {
+    animation: errorPulse 0.3s ease-in-out;
+}
+
+.error-message {
+    animation: errorPulse 0.3s ease-in-out;
 }
