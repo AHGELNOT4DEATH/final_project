@@ -7,7 +7,14 @@
   border-radius: 3px;
   padding:0.5rem;
 }
-
+.logo__nav__container{
+  width:fit-content;
+  height: fit-content;
+}
+.logo__nav{
+  width:12rem;
+  height: 8rem;
+}
 .company_limit {
   font-family: "Inter", sans-serif;
   font-size: 14px;
