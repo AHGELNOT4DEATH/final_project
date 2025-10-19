@@ -206,6 +206,9 @@ html {
   height: fit-content;
   align-self: center;
   margin-bottom: 9rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 .third-part__button{
   width:25rem;
@@ -371,14 +374,14 @@ html {
   height: 24px;
 }
 
-/* ==================== МОБИЛЬНАЯ ВЕРСИЯ ТАБЛИЦЫ ==================== */
+/* ==================== ПЕРЕРАБОТАННАЯ МОБИЛЬНАЯ ВЕРСИЯ ТАБЛИЦЫ ==================== */
 .mobile-table-container {
   width: 100%;
   margin-top: 1rem;
   display: none; /* По умолчанию скрыта */
 }
 
-.mobile-table {
+.mobile-table-wrapper {
   border: 2px solid #029491;
   border-radius: 10px;
   overflow: hidden;
@@ -386,67 +389,137 @@ html {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Фиксированная верхняя строка с заголовками */
 .mobile-table-header {
   display: flex;
   background: #029491;
   color: white;
   font-weight: 600;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
-.mobile-table-row {
+.mobile-table-header-cell {
+  flex: 1;
+  padding: 1rem 0.8rem;
+  text-align: center;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.mobile-table-header-cell:last-child {
+  border-right: none;
+}
+
+/* Прокручиваемая область с данными */
+.mobile-table-scroll-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Скрываем скроллбар */
+.mobile-table-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.mobile-table-scroll-container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.mobile-table-data {
+  display: flex;
+  min-width: max-content;
+}
+
+/* Сектор данных (один столбец из десктопной версии) */
+.mobile-data-sector {
+  display: flex;
+  flex-direction: column;
+  min-width: 120px;
+  flex: 1;
+}
+
+.mobile-data-row {
   display: flex;
   border-bottom: 1px solid #eee;
+  min-height: 60px;
 }
 
-.mobile-table-row:last-child {
+.mobile-data-row:last-child {
   border-bottom: none;
 }
 
-.mobile-period {
-  flex: 2;
-  padding: 1rem 0.8rem;
-  font-weight: 500;
-  border-right: 1px solid #eee;
-  font-family: "Inter", sans-serif;
-  font-size: 14px;
-}
-
-.mobile-total {
+.mobile-data-cell {
   flex: 1;
   padding: 1rem 0.8rem;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
   border-right: 1px solid #eee;
-  font-family: "Inter", sans-serif;
-  font-size: 14px;
-  font-weight: 500;
 }
 
-.mobile-risks {
-  flex: 1;
-  padding: 1rem 0.8rem;
-  text-align: center;
-  font-family: "Inter", sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-/* Заголовки в мобильной версии */
-.mobile-table-header .mobile-period,
-.mobile-table-header .mobile-total,
-.mobile-table-header .mobile-risks {
-  color: white;
-  font-weight: 600;
-  background: #029491;
+.mobile-data-cell:last-child {
+  border-right: none;
 }
 
 /* Чередование цветов строк для лучшей читаемости */
-.mobile-table-row:nth-child(even) {
+.mobile-data-row:nth-child(even) {
   background: #f8f9fa;
 }
 
-.mobile-table-row:nth-child(odd) {
+.mobile-data-row:nth-child(odd) {
   background: white;
+}
+
+/* Стрелки для прокрутки мобильной таблицы */
+.mobile-table-arrows {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.mobile-scroll-arrow {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.8rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-scroll-arrow:hover:not(:disabled) {
+  background: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  transform: scale(1.05);
+}
+
+.mobile-scroll-arrow:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.mobile-scroll-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.mobile-scroll-arrow img {
+  width: 20px;
+  height: 20px;
 }
 
 /* ==================== МОБИЛЬНАЯ АДАПТАЦИЯ ВСЕЙ СТРАНИЦЫ ==================== */
@@ -512,24 +585,19 @@ html {
   }
   
   /* Адаптация мобильной таблицы */
-  .mobile-period {
-    flex: 3;
+  .mobile-table-header-cell {
     font-size: 12px;
-    padding: 0.8rem 0.6rem;
+    padding: 0.8rem 0.5rem;
   }
   
-  .mobile-total,
-  .mobile-risks {
-    flex: 1;
+  .mobile-data-cell {
     font-size: 12px;
-    padding: 0.8rem 0.4rem;
+    padding: 0.8rem 0.5rem;
+    min-height: 50px;
   }
   
-  .mobile-table-header .mobile-period,
-  .mobile-table-header .mobile-total,
-  .mobile-table-header .mobile-risks {
-    font-size: 13px;
-    padding: 0.8rem 0.6rem;
+  .mobile-data-sector {
+    min-width: 100px;
   }
 
   .Results_third-part {
@@ -614,6 +682,7 @@ html {
     max-width: 300px;
     height: 4rem;
     font-size: 18px;
+    align-self:center;
   }
 }
 
@@ -632,22 +701,28 @@ html {
   }
 
   /* Мобильная таблица на очень маленьких экранах */
-  .mobile-period {
+  .mobile-table-header-cell {
     font-size: 11px;
-    padding: 0.7rem 0.5rem;
+    padding: 0.7rem 0.4rem;
   }
   
-  .mobile-total,
-  .mobile-risks {
+  .mobile-data-cell {
     font-size: 11px;
-    padding: 0.7rem 0.3rem;
+    padding: 0.7rem 0.4rem;
+    min-height: 45px;
   }
   
-  .mobile-table-header .mobile-period,
-  .mobile-table-header .mobile-total,
-  .mobile-table-header .mobile-risks {
-    font-size: 12px;
-    padding: 0.7rem 0.5rem;
+  .mobile-data-sector {
+    min-width: 90px;
+  }
+
+  .mobile-scroll-arrow {
+    padding: 0.6rem;
+  }
+
+  .mobile-scroll-arrow img {
+    width: 18px;
+    height: 18px;
   }
 
   .third-part__card {
@@ -661,6 +736,10 @@ html {
   .card__button {
     font-size: 14px;
     height: 2.5rem;
+  }
+  .third-part__button__container{
+    align-content:center;
+    justify-content: center;
   }
 }
 
@@ -722,4 +801,141 @@ html {
     font-size: 12px;
     padding: 0.6rem 0.2rem;
   }
+}
+/* ==================== ПРАВИЛЬНАЯ МОБИЛЬНАЯ ВЕРСИЯ ТАБЛИЦЫ ==================== */
+.mobile-table-container {
+  width: 100%;
+  margin-top: 1rem;
+  display: none; /* По умолчанию скрыта */
+}
+
+.mobile-table-wrapper {
+  border: 2px solid #029491;
+  border-radius: 10px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Фиксированная верхняя строка с заголовками */
+.mobile-table-header {
+  display: flex;
+  background: #029491;
+  color: white;
+  font-weight: 600;
+  position: relative;
+  z-index: 10;
+}
+
+.mobile-table-header-cell {
+  flex: 1;
+  padding: 1rem 0.8rem;
+  text-align: center;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.mobile-table-header-cell:last-child {
+  border-right: none;
+}
+
+/* Область с данными - один сектор на весь экран */
+.mobile-table-data-container {
+  position: relative;
+  overflow: hidden;
+  min-height: 80px;
+}
+
+.mobile-data-sector {
+  display: flex;
+  width: 100%;
+  transition: transform 0.3s ease;
+}
+
+/* ОДНА строка с данными для каждого сектора */
+.mobile-data-row {
+  display: flex;
+  width: 100%;
+  min-height: 80px;
+}
+
+.mobile-data-cell {
+  flex: 1;
+  padding: 1rem 0.8rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  border-right: 1px solid #eee;
+  background: white;
+}
+
+.mobile-data-cell:last-child {
+  border-right: none;
+}
+
+/* Стрелки для переключения секторов */
+.mobile-table-arrows {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+  align-items: center;
+}
+
+.mobile-scroll-arrow {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.8rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-scroll-arrow:hover:not(:disabled) {
+  background: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  transform: scale(1.05);
+}
+
+.mobile-scroll-arrow:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.mobile-scroll-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.mobile-scroll-arrow img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Индикатор текущего сектора */
+.mobile-sector-indicator {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.mobile-sector-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ccc;
+  transition: 0.3s ease;
+}
+
+.mobile-sector-dot.active {
+  background: #029491;
 }

@@ -1,4 +1,4 @@
-// Results.jsx - С МОБИЛЬНОЙ АДАПТАЦИЕЙ ТАБЛИЦЫ
+// Results.jsx - С ПРАВИЛЬНОЙ МОБИЛЬНОЙ ВЕРСИЕЙ ТАБЛИЦЫ
 import React, { useRef, useState, useEffect } from 'react';
 import './Results.css';
 
@@ -15,6 +15,7 @@ const Results = () => {
   const tableDataRef = useRef(null);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [maxScroll, setMaxScroll] = useState(0);
+  const [currentMobileSector, setCurrentMobileSector] = useState(0);
 
   // Данные для таблицы
   const tableData = [
@@ -28,7 +29,7 @@ const Results = () => {
     { period: "18.10.2021", total: 3, risks: 0 }
   ];
 
-  // Рассчитываем максимальную прокрутку
+  // Рассчитываем максимальную прокрутку для десктопной таблицы
   useEffect(() => {
     const updateMaxScroll = () => {
       if (tableDataRef.current) {
@@ -43,7 +44,7 @@ const Results = () => {
     return () => window.removeEventListener('resize', updateMaxScroll);
   }, [tableData]);
 
-  // Прокрутка влево
+  // Прокрутка десктопной таблицы влево
   const scrollTableLeft = () => {
     if (tableDataRef.current) {
       const newPosition = Math.max(scrollPosition - 150, 0);
@@ -52,7 +53,7 @@ const Results = () => {
     }
   };
 
-  // Прокрутка вправо
+  // Прокрутка десктопной таблицы вправо
   const scrollTableRight = () => {
     if (tableDataRef.current) {
       const newPosition = Math.min(scrollPosition + 150, maxScroll);
@@ -61,7 +62,17 @@ const Results = () => {
     }
   };
 
-  // Обработчик скролла
+  // Переключение мобильной таблицы на предыдущий сектор
+  const prevMobileSector = () => {
+    setCurrentMobileSector(prev => Math.max(prev - 1, 0));
+  };
+
+  // Переключение мобильной таблицы на следующий сектор
+  const nextMobileSector = () => {
+    setCurrentMobileSector(prev => Math.min(prev + 1, tableData.length - 1));
+  };
+
+  // Обработчик скролла десктопной таблицы
   const handleScroll = () => {
     if (tableDataRef.current) {
       setScrollPosition(tableDataRef.current.scrollLeft);
@@ -163,27 +174,69 @@ const Results = () => {
           </button>
         </div>
 
-        {/* Мобильная версия таблицы */}
+        {/* ПРАВИЛЬНАЯ мобильная версия таблицы - ОДНА СТРОКА ДАННЫХ */}
         <div className="mobile-table-container mobile-version">
-          <div className="mobile-table">
+          <div className="mobile-table-wrapper">
+            {/* Фиксированная верхняя строка с заголовками */}
             <div className="mobile-table-header">
-              <div className="mobile-period">Период</div>
-              <div className="mobile-total">Всего</div>
-              <div className="mobile-risks">Риски</div>
+              <div className="mobile-table-header-cell">Период</div>
+              <div className="mobile-table-header-cell">Всего</div>
+              <div className="mobile-table-header-cell">Риски</div>
             </div>
             
-            {tableData.map((item, index) => (
-              <div key={index} className="mobile-table-row">
-                <div className="mobile-period">{item.period}</div>
-                <div className="mobile-total">{item.total}</div>
-                <div className="mobile-risks">{item.risks === 0 ? "0" : item.risks}</div>
+            {/* Область с данными - ОДНА СТРОКА с данными текущего сектора */}
+            <div className="mobile-table-data-container">
+              <div className="mobile-data-sector">
+                <div className="mobile-data-row">
+                  {/* Период */}
+                  <div className="mobile-data-cell">
+                    {tableData[currentMobileSector]?.period}
+                  </div>
+                  {/* Всего */}
+                  <div className="mobile-data-cell">
+                    {tableData[currentMobileSector]?.total}
+                  </div>
+                  {/* Риски */}
+                  <div className="mobile-data-cell">
+                    {tableData[currentMobileSector]?.risks === 0 ? "0" : tableData[currentMobileSector]?.risks}
+                  </div>
+                </div>
               </div>
-            ))}
+            </div>
+          </div>
+          
+          {/* Стрелки для переключения секторов */}
+          <div className="mobile-table-arrows">
+            <button 
+              className="mobile-scroll-arrow left-arrow" 
+              onClick={prevMobileSector}
+              disabled={currentMobileSector === 0}
+            >
+              <img src={LeftArrow} alt="Предыдущий сектор" />
+            </button>
+            
+            {/* Индикатор текущего сектора */}
+            <div className="mobile-sector-indicator">
+              {tableData.map((_, index) => (
+                <div 
+                  key={index}
+                  className={`mobile-sector-dot ${index === currentMobileSector ? 'active' : ''}`}
+                />
+              ))}
+            </div>
+            
+            <button 
+              className="mobile-scroll-arrow right-arrow" 
+              onClick={nextMobileSector}
+              disabled={currentMobileSector === tableData.length - 1}
+            >
+              <img src={RightArrow} alt="Следующий сектор" />
+            </button>
           </div>
         </div>
       </div>
       
-      {/* Третья часть - список документов */}
+      {/* Остальная часть компонента без изменений */}
       <div className="Results_third-part">
         <div className="third-part__title__container">
           <h3 className="third-part__title">Список документов</h3>
