@@ -176,17 +176,20 @@ html {
 
 .log-in__input-container {
   align-self: center;
+  position: relative;
+  margin-bottom: 0.5rem;
 }
 
 .log-in__input {
   width: 25rem;
   height: 3rem;
   margin-top: 0.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   border: 1px solid #C7C7C7;
   border-radius: 5px;
   padding: 0 1rem;
   font-size: 14px;
+  transition: all 0.3s ease;
 }
 
 .log-in__input:focus {
@@ -194,9 +197,40 @@ html {
   border-color: #029491;
 }
 
+/* Стили для полей с ошибками */
+.log-in__input.input-error {
+  border-color: #FF5959 !important;
+  background-color: rgba(255, 89, 89, 0.05);
+  color: #FF5959;
+}
+
+.log-in__input.input-error:focus {
+  border-color: #FF5959;
+  box-shadow: 0 0 0 2px rgba(255, 89, 89, 0.1);
+}
+
 .log-in__label {
   font-size: 12px;
   color: #949494;
+  transition: color 0.3s ease;
+}
+
+/* Стили для лейблов с ошибками */
+.log-in__label.label-error {
+  color: #FF5959 !important;
+}
+
+/* Сообщения об ошибках */
+.error-message {
+  color: #FF5959;
+  font-size: 12px;
+  font-weight: 500;
+  margin-top: 0.3rem;
+  padding: 0.3rem 0.5rem;
+  background: rgba(255, 89, 89, 0.05);
+  border-radius: 3px;
+  border-left: 3px solid #FF5959;
+  font-family: "Inter", sans-serif;
 }
 
 .auth_block__log-in__buttons {
@@ -310,6 +344,21 @@ html {
   height: auto;
 }
 
+/* Анимация для появления ошибок */
+@keyframes errorPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.log-in__input.input-error {
+  animation: errorPulse 0.3s ease-in-out;
+}
+
+.error-message {
+  animation: errorPulse 0.3s ease-in-out;
+}
+
 /*---------------------------МОБИЛЬНАЯ АДАПТАЦИЯ---------------------------*/
 @media (max-width: 1024px) {
   .login-main {
@@ -377,6 +426,11 @@ html {
   .log-in__input {
     width: 100%;
   }
+
+  /* Адаптация ошибок для планшетов */
+  .error-message {
+    font-size: 11px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -430,6 +484,13 @@ html {
   .google_img, .facebook_img, .yandex_img {
     width: 3.5rem;
   }
+
+  /* Адаптация ошибок для мобильных */
+  .error-message {
+    font-size: 10px;
+    margin-top: 0.2rem;
+    padding: 0.2rem 0.4rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -466,6 +527,12 @@ html {
     max-width: 250px;
     height: auto;
   }
+
+  /* Адаптация ошибок для маленьких экранов */
+  .error-message {
+    font-size: 9px;
+    border-left-width: 2px;
+  }
 }
 
 /* Для очень маленьких экранов */
@@ -491,5 +558,9 @@ html {
   .log-in__button {
     height: 2.8rem;
     font-size: 14px;
+  }
+
+  .error-message {
+    font-size: 8px;
   }
 }

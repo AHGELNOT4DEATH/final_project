@@ -4,23 +4,79 @@ import { useAuth } from '../../contexts/AuthContext';
 import './Login.css';
 
 const Login = () => {
-  const [login, setLogin] = useState('');
-  const [password, setPassword] = useState('');
+  const [formData, setFormData] = useState({
+    login: '',
+    password: ''
+  });
+  const [errors, setErrors] = useState({
+    login: '',
+    password: ''
+  });
+  const [showErrors, setShowErrors] = useState(false);
+  
   const { login: authLogin } = useAuth();
   const navigate = useNavigate();
+
+  // Проверка заполненности формы
+  const isFormFilled = formData.login.trim() && formData.password.trim();
+
+  // Валидация логина/телефона
+  const validateLogin = (login) => {
+    if (!login.trim()) return 'Поле обязательно для заполнения';
+    
+    // Проверяем тип данных: телефон или логин
+    if (login.startsWith('+')) {
+      // Это телефон
+      if (!/^\+[0-9]+$/.test(login)) return 'Введите корректные данные';
+      if (login !== '+79111111111') return 'Неверный телефон';
+    } else {
+      // Это логин
+      if (!/^[a-zA-Z0-9_]+$/.test(login)) return 'Введите корректные данные';
+      if (login !== 'Test__1') return 'Неверный логин';
+    }
+    
+    return '';
+  };
+
+  // Валидация пароля
+  const validatePassword = (password) => {
+    if (!password.trim()) return 'Поле обязательно для заполнения';
+    if (password !== 'Test__password') return 'Неправильный пароль';
+    return '';
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (!login || !password) {
-      alert('Пожалуйста, заполните все поля');
+    if (!isFormFilled) return;
+
+    // Валидация при отправке
+    const loginError = validateLogin(formData.login);
+    const passwordError = validatePassword(formData.password);
+    
+    setErrors({
+      login: loginError,
+      password: passwordError
+    });
+    setShowErrors(true);
+    
+    // Если есть ошибки - не отправляем форму
+    if (loginError || passwordError) {
       return;
     }
 
     try {
-      // Временная заглушка для тестирования
+      // Успешная авторизация
       const userData = {
-        username: login,
+        username: formData.login,
         token: 'mock-token-' + Date.now()
       };
       authLogin(userData);
@@ -29,8 +85,6 @@ const Login = () => {
       alert('Произошла ошибка при авторизации');
     }
   };
-
-  const isFormValid = login.trim() && password.trim();
 
   return (
     <div className="login-page">
@@ -63,27 +117,40 @@ const Login = () => {
             
             <div className="auth_block__log-in__inputs">
               <form className="auth_form" onSubmit={handleSubmit}>
+                {/* Поле логина/телефона с валидацией */}
                 <div className="log-in__input-container">
-                  <label className="log-in__label">Логин или номер телефона</label>
+                  <label className={`log-in__label ${showErrors && errors.login ? 'label-error' : ''}`}>
+                    Логин или номер телефона
+                  </label>
                   <input 
-                    className="log-in__input"
+                    className={`log-in__input ${showErrors && errors.login ? 'input-error' : ''}`}
                     type="text" 
-                    value={login}
-                    onChange={(e) => setLogin(e.target.value)}
+                    name="login"
+                    value={formData.login}
+                    onChange={handleInputChange}
                     placeholder=" "
-                    required
                   />
+                  {showErrors && errors.login && (
+                    <div className="error-message">{errors.login}</div>
+                  )}
                 </div>
+
+                {/* Поле пароля с валидацией */}
                 <div className="log-in__input-container">
-                  <label className="log-in__label">Пароль</label>
+                  <label className={`log-in__label ${showErrors && errors.password ? 'label-error' : ''}`}>
+                    Пароль
+                  </label>
                   <input 
-                    className="log-in__input"
+                    className={`log-in__input ${showErrors && errors.password ? 'input-error' : ''}`}
                     type="password" 
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    name="password"
+                    value={formData.password}
+                    onChange={handleInputChange}
                     placeholder=" "
-                    required
                   />
+                  {showErrors && errors.password && (
+                    <div className="error-message">{errors.password}</div>
+                  )}
                 </div>
               </form>
             </div>
@@ -91,9 +158,9 @@ const Login = () => {
             <div className="auth_block__log-in__buttons">
               <div className="log-in__button-container">
                 <button 
-                  className={`log-in__button ${!isFormValid ? 'disabled' : ''}`}
+                  className={`log-in__button ${!isFormFilled ? 'disabled' : ''}`}
                   onClick={handleSubmit}
-                  disabled={!isFormValid}
+                  disabled={!isFormFilled}
                 >
                   Войти
                 </button>
