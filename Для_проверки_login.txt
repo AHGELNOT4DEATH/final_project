@@ -1,0 +1,4 @@
+Для проверки Error states в login:
+Логин:Test__1
+Телефон:+79111111111
+Пароль:Test__password
